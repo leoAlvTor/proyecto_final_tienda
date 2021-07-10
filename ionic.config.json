@@ -1,0 +1,7 @@
+{
+  "name": "tutienda",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
