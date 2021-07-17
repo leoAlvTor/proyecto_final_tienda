@@ -30,6 +30,14 @@ const routes: Routes = [
   {
     path: 'update-cliente',
     loadChildren: () => import('./pages/update-cliente/update-cliente.module').then( m => m.UpdateClientePageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   }
 
 
