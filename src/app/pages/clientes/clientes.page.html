@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>CLIENTES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list >
+    <ion-item  *ngFor="let p of Personas | async">
+      <ion-card color="light">
+          <img src="assets/avatar.png" style="height: 20%; width: 20%">
+        <ion-card-header>
+          <ion-card-title>{{p.Nombres}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>{{p.Codigo}}</h2>
+          <p>{{p.Correo}}</p>
+        </ion-card-content>
+      <ion-button  (click)="editarContacto(p)"  color="primary" expand="block" >Edit Contact</ion-button>
+        <ion-button  (click)="borrarContacto(p)"  color="warning" expand="block" >Delete Contact</ion-button>
+      </ion-card>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
