@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Persona} from "../../modelo/persona";
-import {PersonaService} from "../../services/persona.service";
-import {Route, Router} from "@angular/router";
+import {Persona} from '../../modelo/persona';
+import {PersonaService} from '../../services/persona.service';
+import {Route, Router} from '@angular/router';
+import * as firebase from 'firebase';
+import {AngularFireAuth} from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +13,7 @@ import {Route, Router} from "@angular/router";
 })
 export class SignUpPage implements OnInit {
   persona: Persona = new Persona();
-  constructor(private router: Router, private personaService: PersonaService) { }
+  constructor(private router: Router, private personaService: PersonaService,private afsAuth: AngularFireAuth) { }
 
   ngOnInit() {
 
@@ -26,11 +29,25 @@ export class SignUpPage implements OnInit {
 
   }
 
-  loginWithFacebook() {
+  async signUpWithGoogle() {
+    const user = await this.afsAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
+    const name=user.additionalUserInfo.profile['given_name'];
+    const lastn=user.additionalUserInfo.profile['family_name'];
+    const messge=' Hola  '+ name +' ' + lastn;
+    alert(messge);
+    console.log(user);
+    //Se crea el nuevo usuario y se registra
+    this.persona.Activo=true;
+    this.persona.Codigo=user.additionalUserInfo.profile['id'];
+    this.persona.Contrasena=user.additionalUserInfo.profile['id'];
+    this.persona.Correo=user.additionalUserInfo.profile['email'];
+    this.persona.Nombres=user.additionalUserInfo.profile['given_name'] +' '+ user.additionalUserInfo.profile['family_name'];
+    this.persona.Rol='Cliente';
+    console.log(this.persona);
 
+    this.router.navigate(['folder/Home']);
   }
-
-  loginWithGoogle() {
+  signUpWithFacebook() {
 
   }
 }
