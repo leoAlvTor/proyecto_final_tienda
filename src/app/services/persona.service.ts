@@ -12,7 +12,7 @@ export class PersonaService {
 
   addPerson(persona: Persona){
     const refPersona = this.afs.collection('Persona');
-    refPersona.doc(persona.Codigo).set(Object.assign({}, persona));
+    refPersona.doc(persona.Codigo).set(Object.assign({}, persona)).then(r => console.log(''));
   }
   getPersons(): Observable<any[]>{
     return this.afs.collection('Persona',

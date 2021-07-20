@@ -10,5 +10,14 @@ import {Observable} from "rxjs";
 })
 export class DashboardService {
 
-  constructor() { }
+  constructor(public afs: AngularFirestore) { }
+
+  getProducts(): Observable<any[]>{
+    return this.afs.collection('Producto').valueChanges();
+  }
+
+  getFacturas(): Observable<any[]>{
+    return this.afs.collection('Factura Cabecera').valueChanges();
+  }
+
 }
