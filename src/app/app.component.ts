@@ -20,4 +20,9 @@ export class AppComponent {
   clientes() {
     this.router.navigate(['clientes'])
   }
+
+  dashboard() {
+    this.router.navigate(['dashboard']).then(r => console.log('Se navego hacia dashboard...'));
+  }
+
 }
