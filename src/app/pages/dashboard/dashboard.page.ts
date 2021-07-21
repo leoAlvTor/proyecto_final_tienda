@@ -1,30 +1,13 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import {
-  Chart,
-  ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
-  DoughnutController,
-  LineController,
-  PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Decimation,
-  Filler,
-  Legend,
-  Title,
-  Tooltip
-} from 'chart.js';
+import { Chart,  ArcElement,  LineElement,  BarElement,  PointElement,  BarController,  BubbleController,  DoughnutController,
+  LineController,  PieController,  PolarAreaController,  RadarController,  ScatterController,  CategoryScale,
+  LinearScale,  LogarithmicScale,  RadialLinearScale,  TimeScale,  TimeSeriesScale,  Decimation,  Filler,  Legend,
+  Title,  Tooltip} from 'chart.js';
+
+import {DashboardService} from "../../services/dashboard.service";
+import {Factura_cabecera} from "../../modelo/factura_cabecera";
+import {Producto} from "../../modelo/producto";
+import {map} from "rxjs/operators";
 
 Chart.register(ArcElement,  LineElement,  BarElement,  PointElement,  BarController,  BubbleController,
   DoughnutController,  LineController,  PieController,  PolarAreaController,  RadarController,  ScatterController,
@@ -46,14 +29,59 @@ export class DashboardPage implements AfterViewInit{
   doughnutChart: any;
   lineChart: any;
 
-  constructor() {
+  productos: Promise<Producto[]>;
+  facturas_cabecera: any;
 
+  constructor(private dashboard_service: DashboardService) {
+    this.productos = this.dashboard_service.getProducts();
+    this.facturas_cabecera = this.dashboard_service.getFacturas();
+
+    this.productos.then(value => {
+      this.llenarDatos(value, 0);
+    })
   }
 
   ngAfterViewInit() {
     this.barChartMethod();
     this.doughnutChartMethod();
     this.lineChartMethod();
+  }
+
+  private llenarDatos(data, source){
+    if (source === 1)
+      this.setProductosPorCategoria(data)
+    else if(source === 2)
+      this.setVentasPorDia(data)
+    else if (source === 3)
+      this.setVentasPorMes(data)
+    else if (source === 4)
+      this.setTopClientes(data)
+  }
+
+  private setProductosPorCategoria(data){
+    let mapaProductosCantidad = [];
+
+    console.log(mapaProductosCantidad.length)
+    for (const dataKey in data) {
+      if(!mapaProductosCantidad.includes(data[dataKey].codigo)) {
+        mapaProductosCantidad.push(data[dataKey].nombre)
+
+      }else{
+
+      }
+    }
+  }
+
+  private setVentasPorDia(data){
+
+  }
+
+  private setVentasPorMes(data){
+
+  }
+
+  private setTopClientes(data){
+
   }
 
   barChartMethod() {
@@ -143,6 +171,22 @@ export class DashboardPage implements AfterViewInit{
         ]
       }
     });
+  }
+
+  getProductosPorCategoria(){
+
+  }
+
+  getVentasEstaSemana(){
+
+  }
+
+  getVentasPorMes(){
+
+  }
+
+  getTop5Clientes(){
+
   }
 
 }
