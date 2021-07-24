@@ -1,9 +1,11 @@
-export class Factura_cabecera{
-  cliente: string;
-  codigo: string;
-  fecha: string;
-  numero_factura: string;
-  subtotal_0: string;
-  subtotal_12: string;
-  total: string;
+export class Factura_Cabecera{
+  id_documento: string
+  id: number
+  id_cliente: string
+  fecha: Date = new Date();
+  subtotal0: number
+  subtotal12: number
+  iva12: number
+  total: number
+  anulada: string = "FALSE";
 }
