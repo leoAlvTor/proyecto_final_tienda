@@ -37,7 +37,7 @@ export class DashboardPage implements AfterViewInit{
     this.facturas_cabecera = this.dashboard_service.getFacturas();
 
     this.productos.then(value => {
-      this.llenarDatos(value, 0);
+      this.llenarDatos(value, 1);
     })
   }
 
@@ -58,18 +58,22 @@ export class DashboardPage implements AfterViewInit{
       this.setTopClientes(data)
   }
 
+
   private setProductosPorCategoria(data){
-    let mapaProductosCantidad = [];
+    let categoriaCantidad = new Map<string, number>();
+    console.log(data)
+    for (let i = 0; i < data.length; i++) {
+      if(categoriaCantidad.has(data[i].categoria)){
+        console.log('ENTRO')
+        let cantidad = categoriaCantidad.get(data[i].categoria)+1;
 
-    console.log(mapaProductosCantidad.length)
-    for (const dataKey in data) {
-      if(!mapaProductosCantidad.includes(data[dataKey].codigo)) {
-        mapaProductosCantidad.push(data[dataKey].nombre)
-
+        categoriaCantidad.delete(data[i].categoria);
+        categoriaCantidad.set(data[i].categoria, cantidad);
       }else{
-
+        categoriaCantidad.set(data[i].categoria, 1);
       }
     }
+    return categoriaCantidad;
   }
 
   private setVentasPorDia(data){
