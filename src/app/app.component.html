@@ -1,29 +1,50 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+  <ion-menu manuId="main-manu" contentId="main">
+    <ion-content>
+      <div class="menu-header-bg"></div>
+      <div class="header-content">
+        <img src="../assets/avatar3.png" alt="">
+        <ion-label>
+          <h2>Welcome User.</h2>
+          <p>user@gmail.com</p>
+        </ion-label>
+      </div>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+      <div class="action-button">
+        <ion-button (click)="logOut()">
+          <ion-icon name="log-out-outline" ></ion-icon>Log Out
+        </ion-button>
+      </div>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
+      <ion-list  lines="none" class="menu items">
+        <ion-item>
+          <ion-icon (click)="dashboard()" name="pie-chart-outline"></ion-icon> DashBoard
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-icon (click)="clientes()"  name="people-circle-outline"></ion-icon> Clientes
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-icon  name="bag-handle-outline"></ion-icon> Productos
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-icon  name="bag-add-outline"></ion-icon> Agregar Producto
+        </ion-item>
+        <br>
+        <ion-item (click)="facturas()">
+          <ion-icon  name="clipboard-outline"></ion-icon> Facturas
+        </ion-item>
+
+      </ion-list>
+
+      <div class="contact-us">
+
+      </div>
+
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

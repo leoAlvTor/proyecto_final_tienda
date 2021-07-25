@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
+import {AngularFireAuth} from '@angular/fire/auth';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,5 +16,26 @@ export class AppComponent {
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  constructor(private router: Router, private afsAuth: AngularFireAuth) {}
+
+  clientes() {
+    this.router.navigate(['clientes']);
+  }
+  async logOut(){
+    try {
+      this.afsAuth.signOut();
+      this.router.navigate(['login']);
+    }catch (error){
+      console.log('Error : -> ', error);
+    }
+  }
+
+  dashboard() {
+    this.router.navigate(['dashboard']).then(r => console.log('Se navego hacia dashboard...'));
+  }
+
+  facturas(){
+    this.router.navigate(['factura']).then(e => console.log(e, '<-- Se navego hacia facturas'));
+  }
+
 }

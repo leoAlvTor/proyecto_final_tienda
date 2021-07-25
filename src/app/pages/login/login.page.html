@@ -1,0 +1,39 @@
+<ion-content>
+  <div class="login-section ion-padding">
+    <div class="heading ion-padding">
+      <h1>Welcome TU TIENDA!</h1>
+      <P>Sign in to continue </P>
+    </div>
+    <div class="login-form ion-padding">
+      <div class="form-input">
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-item>
+          <ion-label position="floating">Cedula</ion-label>
+          <ion-input [(ngModel)]="inicioSesion.Cedula" type="text"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="form-input">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input [(ngModel)]="inicioSesion.Contrasena" type="Password"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+    <div class="action-button ion-padding">
+      <ion-button size="large" class="login-button" (click)="login()">Log in</ion-button>
+      <div class="action-button ion-padding">
+        <ion-button color="danger" (click)="loginWithGoogle()">
+          <ion-icon name="logo-google"></ion-icon>
+        </ion-button>
+        <ion-button (click)="loginWithFacebook()">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </ion-button>
+      </div>
+      <!--<p>Forgot Password ?</p>-->
+      <ion-button size="large" class="signup-button" fill="outline" (click)="signup()">sign up</ion-button>
+
+    </div>
+  </div>
+</ion-content>

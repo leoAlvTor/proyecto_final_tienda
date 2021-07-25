@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Busqueda de Clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar #ionSearchbar [(ngModel)]="search_item" placeholder="Ingrese el nombre del cliente" clear-icon
+                  (ionChange)="setFilteredItems()"></ion-searchbar>
+  <br>
+  <div align="center">
+  <ion-list *ngFor="let i of filtered_items">
+
+    <ion-item>
+      <ion-label>{{i.data.Codigo}}</ion-label>
+      <ion-label>{{i.data.Nombres}}</ion-label>
+      <ion-button (click)="close(i.id)" color="primary"><ion-icon name="checkmark"></ion-icon> </ion-button>
+    </ion-item>
+
+  </ion-list>
+  </div>
+</ion-content>

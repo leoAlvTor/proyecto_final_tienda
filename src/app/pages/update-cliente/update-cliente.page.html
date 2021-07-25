@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Update</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card color="light">
+  <ion-img   style="width: 150px; height: 150px; margin-left: auto; margin-right: auto;" src="../../../../assets/avatar.png"></ion-img>
+  <!-- Input with placeholder -->
+    <ion-item>
+      <ion-label position="fixed">Cedula:</ion-label>
+      <ion-input>{{persona.Codigo}}</ion-input>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-label position="fixed">Nombres:</ion-label>
+      <ion-input [(ngModel)]="persona.Nombres"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-label position="fixed">Correo:</ion-label>
+      <ion-input [(ngModel)]="persona.Correo"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-label position="fixed">Contraseña:</ion-label>
+      <ion-input [(ngModel)]="persona.Contrasena"></ion-input>
+    </ion-item>
+    <br>
+    <ion-button color="success"expand="block" (click)="updateContacto()">Save Contact</ion-button>
+  </ion-card>
+
+
+</ion-content>
