@@ -29,4 +29,13 @@ export class AppComponent {
       console.log('Error : -> ', error);
     }
   }
+
+  dashboard() {
+    this.router.navigate(['dashboard']).then(r => console.log('Se navego hacia dashboard...'));
+  }
+
+  facturas(){
+    this.router.navigate(['factura']).then(e => console.log(e, '<-- Se navego hacia facturas'));
+  }
+
 }

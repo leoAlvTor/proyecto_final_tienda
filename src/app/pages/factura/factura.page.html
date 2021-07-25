@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Modulo Facturas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card >
+          <ion-card-header>
+            <ion-card-title>Cliente</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid *ngIf="cliente">
+              <ion-row>
+                <ion-col><ion-input #cedula [(ngModel)]="cliente.Codigo">Cedula:</ion-input></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col><ion-input [(ngModel)]="cliente.Nombres">Nombre:</ion-input></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col><ion-input [(ngModel)]="cliente.Ubicacion">Direccion:</ion-input></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col><ion-input [(ngModel)]="cliente.Correo">Correo:</ion-input></ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="createModal()" expand="block">Buscar Cliente</ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button (click)="cleanInputs()" expand="block" color="danger">Limpiar</ion-button>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
