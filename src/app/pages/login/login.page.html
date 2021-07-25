@@ -9,7 +9,7 @@
         <ion-icon name="person-outline"></ion-icon>
         <ion-item>
           <ion-label position="floating">Cedula</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input [(ngModel)]="inicioSesion.Cedula" type="text"></ion-input>
         </ion-item>
       </div>
 
@@ -17,7 +17,7 @@
         <ion-icon name="lock-closed-outline"></ion-icon>
         <ion-item>
           <ion-label position="floating">Password</ion-label>
-          <ion-input type="Password"></ion-input>
+          <ion-input [(ngModel)]="inicioSesion.Contrasena" type="Password"></ion-input>
         </ion-item>
       </div>
     </div>
