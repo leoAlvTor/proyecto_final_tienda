@@ -5,7 +5,7 @@ import { Chart,  ArcElement,  LineElement,  BarElement,  PointElement,  BarContr
   Title,  Tooltip} from 'chart.js';
 
 import {DashboardService} from "../../services/dashboard.service";
-import {Factura_cabecera} from "../../modelo/factura_cabecera";
+import {Factura_Cabecera} from "../../modelo/factura_cabecera";
 import {Producto} from "../../modelo/producto";
 import {map} from "rxjs/operators";
 
