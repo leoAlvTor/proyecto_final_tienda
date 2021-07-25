@@ -38,4 +38,7 @@ export class AppComponent {
     this.router.navigate(['factura']).then(e => console.log(e, '<-- Se navego hacia facturas'));
   }
 
+  addProducto() {
+
+  }
 }
