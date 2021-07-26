@@ -33,7 +33,7 @@ export class DashboardPage implements AfterViewInit{
   facturas_cabecera: any;
 
   constructor(private dashboard_service: DashboardService) {
-    this.productos = this.dashboard_service.getProducts();
+    //this.productos = this.dashboard_service.getProducts();
     this.facturas_cabecera = this.dashboard_service.getFacturas();
 
     this.productos.then(value => {

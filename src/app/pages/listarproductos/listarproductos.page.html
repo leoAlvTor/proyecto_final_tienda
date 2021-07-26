@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>PRODUCTOS</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-searchbar placeholder="Buscar Producto"></ion-searchbar>
+<ion-content>
+  <ion-list >
+    <div *ngFor="let producto of Productos | async">
+      <ion-item >
+        <ion-card color="light" >
+          <img [src]="producto.imagen">
+          <ion-card-header>
+            <p>Codigo:
+              <ion-card-subtitle>{{producto.codigo}}</ion-card-subtitle></p>
+            <p>Nombre Producto:
+              <ion-card-title>{{producto.nombre}}</ion-card-title></p>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Stock:
+              <strong>{{producto.stock_unitario}}</strong></p>
+            <p>Precio Venta:
+              <strong>{{producto.compraUnitario}}</strong></p>
+          </ion-card-content>
+          <ion-button color="primary" expand="block" >Edit Product</ion-button>
+          <ion-button color="warning" expand="block" >Delete Product</ion-button>
+        </ion-card>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

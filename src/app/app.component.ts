@@ -33,6 +33,14 @@ export class AppComponent {
   dashboard() {
     this.router.navigate(['dashboard']).then(r => console.log('Se navego hacia dashboard...'));
   }
+  productos(){
+    this.router.navigate(['listarproductos']).then(r => console.log('Se navego hacia productos...'));
+  }
+
+  agregarproducto(){
+    this.router.navigate(['agregar-producto']).then(r => console.log('Se navego hacia agregar productos...'));
+  }
+
 
   facturas(){
     this.router.navigate(['factura']).then(e => console.log(e, '<-- Se navego hacia facturas'));
