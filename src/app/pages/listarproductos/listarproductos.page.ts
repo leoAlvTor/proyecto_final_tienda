@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavigationExtras, Router} from '@angular/router';
 import {ProductosService} from '../../services/producto.service';
-import {Persona} from "../../modelo/persona";
-import {Producto} from "../../modelo/producto";
+import {Producto} from '../../modelo/producto';
 
 @Component({
   selector: 'app-listarproductos',
