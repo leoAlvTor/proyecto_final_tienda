@@ -55,7 +55,12 @@ const routes: Routes = [
   {
     path: 'agregar-producto',
     loadChildren: () => import('./pages/agregar-producto/agregar-producto.module').then(m => m.AgregarProductoPageModule)
+  },
+  {
+    path: 'update-productos',
+    loadChildren: () => import('./pages/update-productos/update-productos.module').then(m => m.UpdateProductosPageModule)
   }
+
 
 
 

@@ -6,7 +6,7 @@
     <ion-title>PRODUCTOS</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-searchbar placeholder="Buscar Producto"></ion-searchbar>
+<!--<ion-searchbar placeholder="Buscar Producto"></ion-searchbar>-->
 <ion-content>
   <ion-list >
     <div *ngFor="let producto of Productos | async">
@@ -25,8 +25,8 @@
             <p>Precio Venta:
               <strong>{{producto.compra_unitario}}</strong></p>
           </ion-card-content>
-          <ion-button color="primary" expand="block" >Edit Product</ion-button>
-          <ion-button color="warning" expand="block" >Delete Product</ion-button>
+          <ion-button (click)="editarProducto(producto)"color="primary" expand="block" >Edit Product</ion-button>
+          <ion-button (click)="borrarProducto(producto)" color="warning" expand="block" >Delete Product</ion-button>
         </ion-card>
       </ion-item>
     </div>
