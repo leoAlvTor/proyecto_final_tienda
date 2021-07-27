@@ -12,14 +12,9 @@ export class ProductosService {
   constructor(public afs: AngularFirestore) { }
 
   save(producto: Producto){
-    const refProducto = this.afs.collection('Producto');
-
-    if(producto.codigo == null){
-        producto.codigo = this.afs.createId();
-        producto.activo = true;
-    }
-
-    refProducto.doc(producto.codigo).set(Object.assign({}, producto));
+    producto.activo = true;
+    let productoJSON = JSON.stringify(producto);
+    return this.afs.collection('Producto').doc(producto.codigo).set(Object.assign({}, producto))
   }
 
   getProductos(): Observable<any[]>{
