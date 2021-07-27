@@ -3,6 +3,9 @@ import {ModalController} from "@ionic/angular";
 import {ModalPage} from "../modal/modal.page";
 import {FirebaseService} from "../../services/firebase.service";
 import {Persona} from "../../modelo/persona";
+import {Producto} from "../../modelo/producto";
+import {ModalFacturaPage} from "../modal-factura/modal-factura.page";
+import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 
 @Component({
   selector: 'app-factura',
@@ -14,9 +17,14 @@ export class FacturaPage implements OnInit {
   cliente: Persona = new Persona();
   modalResponse: any;
 
+  // Data for product list.
+  productos: any;
+
   @ViewChild('cedula') cedulaInput;
 
-  constructor(public modalController: ModalController, private firebase: FirebaseService) { }
+  constructor(public modalController: ModalController, private firebase: FirebaseService) {
+    this.getProductos();
+  }
 
   ngOnInit() {
   }
@@ -43,10 +51,50 @@ export class FacturaPage implements OnInit {
       )
   }
 
+  getProductos(){
+    this.firebase.getDocuments('Producto').subscribe((data)=>{
+      this.productos = [];
+      data.forEach((producto: any)=>{
+        this.productos.push({
+          id: producto.payload.doc.id,
+          data: producto.payload.doc.data()
+        });
+      });
+    });
+  }
+
+  alerta(id){
+    alert('mensaje '+id)
+  }
+
   cleanInputs(){
     this.cliente = new Persona();
     this.cedulaInput.setFocus();
   }
+
+  async initModal(source:string){
+    const modal = await this.modalController.create({
+      component: ModalFacturaPage,
+      componentProps: {
+        'source': source
+      }
+    });
+    modal.onDidDismiss().then((modalDataResponse)=>{
+      if(modalDataResponse.data !== '')
+        this.setProducto(modalDataResponse.data)
+    })
+    return await modal.present();
+  }
+
+  setProducto(data){
+    console.log(data.data)
+  }
+
+
+  async startBarCodeScanner(){
+
+  }
+
 
 }
 

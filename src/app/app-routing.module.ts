@@ -46,6 +46,14 @@ const routes: Routes = [
   {
     path: 'modal',
     loadChildren: () => import('./pages/modal/modal.module').then( m => m.ModalPageModule)
+  },
+  {
+    path: 'mapa',
+    loadChildren: () => import('./pages/mapa/mapa.module').then( m => m.MapaPageModule)
+  },
+  {
+    path: 'modal-factura',
+    loadChildren: () => import('./pages/modal-factura/modal-factura.module').then( m => m.ModalFacturaPageModule)
   }
 
 

@@ -4,6 +4,9 @@ export class Producto {
   codigo: string;
   compra_paquete: string;
   compra_unitario: string;
+  imagen: string;
+  stock_unitario: string;
+  stock_paquete: string;
   iva: string;
   nombre: string;
   proveedor: string;

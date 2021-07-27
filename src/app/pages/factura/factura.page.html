@@ -43,6 +43,39 @@
             </ion-grid>
           </ion-card-content>
         </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Buscar Productos</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid>
+
+              <ion-row>
+                <ion-col>
+                <ion-button expand="block" (click)="initModal('codigo')">Buscar Por Codigo</ion-button>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                <ion-button expand="block" (click)="initModal('nombre')">Buscar Por Nombre</ion-button>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-button expand="block" color="secondary"><ion-icon name="camera"></ion-icon>  Escanear
+                    Codigo</ion-button>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+          </ion-card-content>
+
+        </ion-card>
+
       </ion-col>
     </ion-row>
   </ion-grid>
