@@ -47,9 +47,9 @@
         <ion-text color="primary">
           <h3>{{ producto.nombre }}</h3>
         </ion-text>
-        <p>Codigo : {{ producto.codigo }}</p> 
-        <p>Stock:{{producto.stock_unitario}}</p>
-        <p>Precio Compra:{{producto.compra_unitario}}</p>
+        <p><strong>Codigo :</strong>{{ producto.codigo }}</p> 
+        <p><strong>Stock : </strong>{{producto.stock_unitario}}</p>
+        <p><strong>Precio Compra : </strong>:{{producto.compra_unitario}}</p>
         <ion-button (click)="editarProducto(producto)"color="primary" expand="block" >Edit Product</ion-button>
         <ion-button  (click)="borrarProducto(producto)"  color="warning" expand="block" >Delete</ion-button>
         <ion-item-divider></ion-item-divider>
