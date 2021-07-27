@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NavigationExtras, Router} from '@angular/router';
 import {ProductosService} from '../../services/producto.service';
-import {Producto} from '../../modelo/producto';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listarproductos',
@@ -10,16 +11,37 @@ import {Producto} from '../../modelo/producto';
 })
 export class ListarproductosPage implements OnInit {
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  Productos: any;
-  // @ts-ignore
-  producto: Producto = new Producto();
-  constructor(private router:Router, private productosService: ProductosService) { }
-  ngOnInit() {
-    this.Productos = this.productosService.getProductos();
-    console.log(this.Productos);
+  constructor(private router:Router, private productosService: ProductosService,private firestore: AngularFirestore) { }
+
+  public productos: any;
+  public productosBackup: any;
+
+  async ngOnInit() {
+    this.productos = await this.initializeItems();
   }
-  editarProducto(producto: any) {
+  
+  async initializeItems(): Promise<any> {
+    const locales = await this.firestore.collection('Producto', ref => ref.where("activo", "==", true))
+      .valueChanges().pipe(first()).toPromise();
+    this.productosBackup = locales;
+    return locales;
+  }
+  async filterList(evt) {
+    this.productos = await this.initializeItems();
+    const searchTerm = evt.srcElement.value;
+  
+    if (!searchTerm) {
+      return;
+    }
+  
+    this.productos = this.productos.filter(producto => {
+      if (producto.nombre && searchTerm) {
+        return (producto.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 || producto.codigo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ) ;
+      }
+    });
+  }
+  
+  async editarProducto(producto: any) {
     console.log('Se procede a editar el producto');
     console.log(producto);
 
@@ -31,11 +53,11 @@ export class ListarproductosPage implements OnInit {
     this.router.navigate(['update-productos'],params);
   }
 
-  borrarProducto(producto: any) {
-    console.log('Producto a Eliminar :', producto);
-    this.producto=producto;
-    this.producto.activo=false;
-    this.productosService.save(this.producto);
+  async borrarProducto(productos: any) {
+    console.log('Producto a Eliminar :', productos);
+    this.productos=productos;
+    this.productos.activo=false;
+    this.productosService.save(this.productos);
     this.router.navigate(['listarproductos']);
   }
 }

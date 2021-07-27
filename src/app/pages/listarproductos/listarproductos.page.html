@@ -1,17 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>PRODUCTOS</ion-title>
-  </ion-toolbar>
-</ion-header>
-<!--<ion-searchbar placeholder="Buscar Producto"></ion-searchbar>-->
-<ion-content>
 
-  <ion-searchbar placeholder="Buscar Producto"></ion-searchbar>
-  <ion-list >
-    <div *ngFor="let producto of Productos | async">
+<ion-app>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>PRODUCTOS</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<!--<ion-content fullscreen]="true">
+  <ion-searchbar placeholder="Buscar Producto" showcancelbutton=""(ionInput)="filterList($event)"></ion-searchbar>
+  <ion-item-divider>Mis Productos:</ion-item-divider>
+  <ion-list lines="none">
+    <div *ngFor="let producto of productos">
       <ion-item >
         <ion-card color="light" >
           <img [src]="producto.imagen">
@@ -33,4 +35,28 @@
       </ion-item>
     </div>
   </ion-list>
+</ion-content>-->
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar placeholder="Buscar Producto" showcancelbutton=""(ionInput)="filterList($event)"></ion-searchbar>
+  <ion-item-divider>Mis Productos:</ion-item-divider>
+  <ion-list lines="none">
+    <ion-item *ngFor="let producto of productos">
+      <ion-label class="ion-text-wrap">
+        <img [src]="producto.imagen">
+        <ion-text color="primary">
+          <h3>{{ producto.nombre }}</h3>
+        </ion-text>
+        <p>Codigo : {{ producto.codigo }}</p> 
+        <p>Stock:{{producto.stock_unitario}}</p>
+        <p>Precio Compra:{{producto.compra_unitario}}</p>
+        <ion-button (click)="editarProducto(producto)"color="primary" expand="block" >Edit Product</ion-button>
+        <ion-button  (click)="borrarProducto(producto)"  color="warning" expand="block" >Delete</ion-button>
+        <ion-item-divider></ion-item-divider>
+      </ion-label>
+      
+    </ion-item>
+  </ion-list>
+
 </ion-content>
+</ion-app>
