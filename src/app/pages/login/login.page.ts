@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
     const lastn=user.additionalUserInfo.profile['family_name'];
     const messge=' Hola  '+ name +' ' + lastn;
     alert(messge);
-    this.route.navigate(['folder/Home']);
+    this.route.navigate(['clientehome']);
   }
 
   loginWithFacebook(){
@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
         if(this.persona.Codigo==cedula && this.persona.Contrasena==contrasena && this.persona.Rol=='Administrador'){
           this.route.navigate(['folder/Home']);
         }else{
-          this.route.navigate(['clientes']);
+          this.route.navigate(['clientehome']);
         }
       }
       catch(error){console.log('Error: ->', error);

@@ -1,0 +1,58 @@
+<ion-menu side="start" menuId="cliente" contentId="cliente">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+
+  </ion-header>
+  <ion-content>
+    <div class="menu-header-bg"></div>
+    <div class="header-content">
+      <img src="../assets/avatar3.png" alt="">
+    </div>
+
+    <br>
+
+    <ion-list  lines="none" class="menu items">
+      <ion-item (click)="Inicio()">
+        <ion-icon  name="home-outline" ></ion-icon> Inicio
+      </ion-item>
+      <br>
+
+      <ion-item (click)="clientes()">
+        <ion-icon  name="person-circle-outline"></ion-icon>Cuenta
+      </ion-item>
+      <br>
+
+      <ion-item>
+        <ion-icon name="cart-outline"></ion-icon> Carrito
+      </ion-item>
+      <br>
+
+      <ion-item>
+        <ion-icon name="location-outline"></ion-icon> Ubicacion
+      </ion-item>
+      <br>
+
+      <ion-item>
+        <ion-icon  name="information-circle-outline"></ion-icon> Terminos y Condiciones
+      </ion-item>
+
+    </ion-list>
+
+    <div class="contact-us">
+
+    </div>
+
+    <br>
+
+    <div class="action-button">
+      <ion-button (click)="logOut()">
+        <ion-icon name="log-out-outline" ></ion-icon>Log Out
+      </ion-button>
+    </div>
+
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="cliente"></ion-router-outlet>

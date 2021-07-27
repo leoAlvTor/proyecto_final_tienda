@@ -1,0 +1,58 @@
+<app-menucliente></app-menucliente>
+<ion-header [translucent]="true">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+
+      <ion-button (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>CLIENTE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--HEADER-->
+  <div class="header">
+    <h1>Menu</h1>
+    <div class="avatar">
+      <ion-img src="assets\avatar3.png"></ion-img>
+    </div>
+  </div>
+
+  <!--SEARHBAR-->
+  <ion-searchbar search-icon="d-search"></ion-searchbar>
+
+  <!--CATEGORIES-->
+  <div class="categories" >
+    <div class="wrapper" *ngFor="let item of categorias" [ngClass]="item.activo ? 'active' : ' '" >
+      <div class="image-card">
+        <ion-img  (click)="buscarbyCategoria(item.nombre)" src="{{item.imagen}}"></ion-img>
+      </div>
+
+      <p class="ion-no-margin">{{item.nombre}}</p>
+    </div>
+  </div>
+
+  <!--PRODUCTS-->
+  <H3>Productos</H3>
+  <div class="food-list" >
+    <div class="card" *ngFor="let p of productos | async" >
+      <ion-img src="{{p.imagen}}"></ion-img>
+      <div class="card-content">
+        <h3 class="nombre">{{p.nombre}}</h3>
+
+        <h2 class="precio"><sup>$</sup>{{p.venta_unidad|number:'1.2'}}</h2>
+
+        <ion-buttons>
+          <ion-button (click)="agregarProducto(p)">
+            <ion-icon slot="icon-only" name="add" ></ion-icon>
+          </ion-button>
+
+        </ion-buttons>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
