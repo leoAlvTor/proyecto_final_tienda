@@ -58,6 +58,6 @@ export class ListarproductosPage implements OnInit {
     this.productos=productos;
     this.productos.activo=false;
     this.productosService.save(this.productos);
-    this.router.navigate(['listarproductos']);
+    this.productos = await this.initializeItems();
   }
 }

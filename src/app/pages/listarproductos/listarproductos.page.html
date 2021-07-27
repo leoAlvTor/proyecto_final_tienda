@@ -38,7 +38,7 @@
 </ion-content>-->
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar placeholder="Buscar Producto" showcancelbutton=""(ionInput)="filterList($event)"></ion-searchbar>
+  <ion-searchbar placeholder="Buscar Producto por nombre o codigo" showcancelbutton=""(ionInput)="filterList($event)"></ion-searchbar>
   <ion-item-divider>Mis Productos:</ion-item-divider>
   <ion-list lines="none">
     <ion-item *ngFor="let producto of productos">
