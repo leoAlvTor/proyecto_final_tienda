@@ -5,7 +5,8 @@ import {FirebaseService} from "../../services/firebase.service";
 import {Persona} from "../../modelo/persona";
 import {Producto} from "../../modelo/producto";
 import {ModalFacturaPage} from "../modal-factura/modal-factura.page";
-import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
+import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
+import {ModalProductoPage} from "../modal-producto/modal-producto.page";
 
 @Component({
   selector: 'app-factura',
@@ -17,13 +18,12 @@ export class FacturaPage implements OnInit {
   cliente: Persona = new Persona();
   modalResponse: any;
 
-  // Data for product list.
-  productos: any;
+  data: any;
+  producto: Producto;
 
   @ViewChild('cedula') cedulaInput;
 
-  constructor(public modalController: ModalController, private firebase: FirebaseService) {
-    this.getProductos();
+  constructor(public modalController: ModalController, private firebase: FirebaseService, private barcodeScanner: BarcodeScanner) {
   }
 
   ngOnInit() {
@@ -51,18 +51,6 @@ export class FacturaPage implements OnInit {
       )
   }
 
-  getProductos(){
-    this.firebase.getDocuments('Producto').subscribe((data)=>{
-      this.productos = [];
-      data.forEach((producto: any)=>{
-        this.productos.push({
-          id: producto.payload.doc.id,
-          data: producto.payload.doc.data()
-        });
-      });
-    });
-  }
-
   alerta(id){
     alert('mensaje '+id)
   }
@@ -80,21 +68,41 @@ export class FacturaPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((modalDataResponse)=>{
-      if(modalDataResponse.data !== '')
-        this.setProducto(modalDataResponse.data)
+      if(modalDataResponse.data !== '') {
+        this.crearFacturaDetalle(modalDataResponse.data.data)
+      }
     })
     return await modal.present();
   }
 
-  setProducto(data){
-    console.log(data.data)
+  async crearFacturaDetalle(data){
+    this.producto = data as Producto;
+    const modal = await this.modalController.create({
+      component: ModalProductoPage,
+      componentProps:{
+        'producto': data
+      }
+    });
+    modal.onDidDismiss().then((modalDataResponse)=>{
+      if(modalDataResponse)
+        console.log(modalDataResponse);
+    });
+    return await modal.present();
   }
 
-
-  async startBarCodeScanner(){
-
+  startBarCodeScanner() {
+    let data;
+    this.barcodeScanner.scan().then(barcodeData => {
+      data = barcodeData;
+      this.firebase.getByField('Producto', 'codigo', data).then(e=>{
+        e.subscribe(async productos => {
+          this.producto = productos[0] as Producto;
+          await this.crearFacturaDetalle(this.producto);
+        })
+      })
+    }).catch(err => {
+      console.log('Error', err);
+    });
   }
-
-
 }
 

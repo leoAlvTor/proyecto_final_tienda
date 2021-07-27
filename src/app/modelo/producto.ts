@@ -14,7 +14,6 @@ export class Producto {
   venta_paquete: string;
   venta_unidad: string;
 
-
   constructor(cantidad_interna, categoria, codigo, compra_paquete, compra_unitario,
               iva, nombre, proveedor, representacion, venta_paquete, venta_unidad) {
     this.cantidad_interna = cantidad_interna;
@@ -29,5 +28,4 @@ export class Producto {
     this.venta_paquete = venta_paquete;
     this.venta_unidad = venta_unidad;
   }
-
 }

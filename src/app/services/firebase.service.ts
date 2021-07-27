@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from "@angular/fire/firestore";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
 
-  constructor(private firebase: AngularFirestore) { }
+  constructor(public firebase: AngularFirestore) { }
 
   public addDocument(collection: string, data: any){
     return this.firebase.collection(collection).add(data);
@@ -21,8 +22,7 @@ export class FirebaseService {
   }
 
   public async getByField(collection: string, field: string, fieldValue: string){
-    return await this.firebase.collection(collection, ref => ref.where(field, '==', fieldValue)).get()
-      .toPromise();
+    return this.firebase.collection(collection, ref => ref.where(field, '==', fieldValue)).valueChanges();
   }
 
   public update(collection: string, docID: string, data: any){

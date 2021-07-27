@@ -46,12 +46,12 @@ export class ModalFacturaPage implements OnInit {
   }
 
   async setFilteredItems(event, source: string){
-    this.filterLoader.present();
+    // this.filterLoader.present();
     if(source === 'nombre') {
       await this.filterByName();
     }else if(source === 'codigo')
       await this.filterByCode()
-    await this.filterLoader.dismiss();
+    // await this.filterLoader.dismiss();
     this.searchBar.setFocus();
   }
 
