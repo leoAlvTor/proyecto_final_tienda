@@ -10,6 +10,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,10 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
             AppRoutingModule,
             AngularFireModule.initializeApp(environment.firebaseConfig),
             AngularFirestoreModule,
-            AngularFireAuthModule],
+            AngularFireAuthModule,
+            AgmCoreModule.forRoot({
+            apiKey: ''})
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

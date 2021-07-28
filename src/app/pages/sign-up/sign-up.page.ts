@@ -4,6 +4,7 @@ import {PersonaService} from '../../services/persona.service';
 import {Route, Router} from '@angular/router';
 import * as firebase from 'firebase';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {LocationService} from '../../services/location.service';
 
 
 @Component({
@@ -13,15 +14,22 @@ import {AngularFireAuth} from '@angular/fire/auth';
 })
 export class SignUpPage implements OnInit {
   persona: Persona = new Persona();
-  constructor(private router: Router, private personaService: PersonaService,private afsAuth: AngularFireAuth) { }
+  latitudGoogle: any;
+  longitudGoogle: any;
+  currentLocation: any;
 
-  ngOnInit() {
+  constructor(private router: Router, private personaService: PersonaService,private afsAuth: AngularFireAuth,
+              private locationService: LocationService) { }
 
+   async ngOnInit() {
+    this.currentLocation = await this.locationService.getCurrentLocation(false);
+     this.latitudGoogle=this.currentLocation['latitude'];
+     this.longitudGoogle=this.currentLocation['longitude'];
   }
   registrarCliente(){
     this.persona.Rol='Cliente';
     this.persona.Activo=true;
-    this.persona.Ubicacion='00000,000000';
+    this.persona.Ubicacion=this.latitudGoogle.toString()+','+this.longitudGoogle.toString();
     console.log(this.persona);
     alert('Se muestra la ubicacion');
     this.personaService.addPerson(this.persona);
@@ -43,9 +51,12 @@ export class SignUpPage implements OnInit {
     this.persona.Correo=user.additionalUserInfo.profile['email'];
     this.persona.Nombres=user.additionalUserInfo.profile['given_name'] +' '+ user.additionalUserInfo.profile['family_name'];
     this.persona.Rol='Cliente';
-    console.log(this.persona);
+    //Obtencion de la ubicacion
+    this.persona.Ubicacion=this.latitudGoogle.toString()+','+this.longitudGoogle.toString();
+    //Se almacena el usuario inicado con google
+    this.personaService.addPerson(this.persona);
 
-    this.router.navigate(['folder/Home']);
+    this.router.navigate(['clientehome']);
   }
   signUpWithFacebook() {
 
