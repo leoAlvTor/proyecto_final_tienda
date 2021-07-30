@@ -32,7 +32,7 @@
               <ion-label>PVP. Unitario:</ion-label>
             </ion-col>
             <ion-col>
-              <ion-input type="number" [(ngModel)]="facturaDetalle.precio_unitario"></ion-input>
+              <ion-input type="number" [(ngModel)]="producto.venta_unidad"></ion-input>
             </ion-col>
           </ion-row>
 
@@ -41,7 +41,7 @@
               <ion-label>PVP Paquete:</ion-label>
             </ion-col>
             <ion-col>
-              <ion-input type="number" [(ngModel)]="facturaDetalle.precio_paquete"></ion-input>
+              <ion-input type="number" [(ngModel)]="producto.venta_paquete"></ion-input>
             </ion-col>
           </ion-row>
 
@@ -65,13 +65,14 @@
 
           <ion-row>
             <ion-col>
-              <ion-button expand="block" color="warning">Agregar Unidad</ion-button>
+              <ion-button expand="block" color="warning" (click)="returnToFactura('unidad')">Agregar Unidad</ion-button>
             </ion-col>
           </ion-row>
 
-          <ion-row>
+          <ion-row *ngIf="producto">
             <ion-col>
-              <ion-button expand="block" color="danger">Agregar Paquete</ion-button>
+              <ion-button [disabled]="checkIfValid()" expand="block" color="danger" (click)="returnToFactura('paquete')">Agregar
+                Paquete</ion-button>
             </ion-col>
           </ion-row>
 

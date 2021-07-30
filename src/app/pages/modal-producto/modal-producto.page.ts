@@ -12,17 +12,25 @@ export class ModalProductoPage implements OnInit {
 
   @Input() producto: Producto;
 
+  private isPaquete: boolean = false;
+
   facturaDetalle: Factura_Detalle = new Factura_Detalle();
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController) {}
 
   ngOnInit() {
   }
 
-  async returnToFactura(){
-    this.facturaDetalle.id_producto = this.producto.codigo
+  checkIfValid(){
+    return Number.parseFloat(this.producto.venta_paquete) === 0;
+  }
 
-    await this.modalController.dismiss();
+  async returnToFactura(representacion: string){
+    this.facturaDetalle.id_producto = this.producto.codigo;
+    this.facturaDetalle.representacion = representacion;
+    this.facturaDetalle.precio_unitario = Number.parseFloat(this.producto.venta_unidad);
+    this.facturaDetalle.precio_paquete = Number.parseFloat(this.producto.venta_paquete);
+    await this.modalController.dismiss(this.facturaDetalle);
   }
 
   async exit(){
