@@ -145,6 +145,14 @@ export class FacturaPage implements OnInit {
     });
   }
 
+  async presentGenericAlert(message){
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
   async presentAlertRecuperarDetalle() {
     const alert = await this.alertController.create({
       message: 'Desea recuperar el ultimo detalle eliminado?',
@@ -182,6 +190,26 @@ export class FacturaPage implements OnInit {
 
   async recuperarUltimoDetalle(){
     await this.presentAlertRecuperarDetalle();
+  }
+
+  async verificarDatos(){
+    let persona = await this.firebase.getById('Persona', this.cliente.Codigo);
+    if((persona.data() as Persona) === undefined){
+      await this.presentGenericAlert("No ha seleccionado a ningun cliente.");
+      this.cedulaInput.setFocus();
+      return false;
+    }else if(this.facturas_detalle.length === 0) {
+      await this.presentGenericAlert("No ha agregado ningun producto.")
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  async crearFactura(){
+    if(await this.verificarDatos()){
+      console.log('EURREKA')
+    }
   }
 
 }

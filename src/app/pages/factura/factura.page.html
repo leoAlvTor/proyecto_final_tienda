@@ -161,7 +161,7 @@
     <ion-card>
       <ion-card-content *ngIf="facturas_detalle.length > 0">
         <ion-col>
-          <ion-button expand="block" color="success">CREAR FACTURA</ion-button>
+          <ion-button (click)="crearFactura()" expand="block" color="success">CREAR FACTURA</ion-button>
         </ion-col>
         <ion-col>
           <ion-button expand="block" color="warning">CANCELAR</ion-button>
