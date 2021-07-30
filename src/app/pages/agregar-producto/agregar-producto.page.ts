@@ -71,8 +71,10 @@ export class AgregarProductoPage implements OnInit {
 
   add(){
     console.log(this.producto);
-    this.servicio.save(this.producto)
-
+    this.servicio.save(this.producto);
+    setTimeout(() => {
+      window.location.reload();
+     }, 1500);
   }
 
 }
