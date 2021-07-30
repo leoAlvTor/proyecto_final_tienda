@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { Producto } from '../modelo/producto';
 
 
@@ -8,17 +9,19 @@ import { Producto } from '../modelo/producto';
   providedIn: 'root'
 })
 export class ProductosService {
-
+  productosBackup: any;
   constructor(public afs: AngularFirestore) { }
 
   save(producto: Producto){
     const refProducto = this.afs.collection("Producto");
-
-    if(producto.codigo == null){
         let productoJSON = JSON.stringify(producto);
         producto.activo = true;
-    }
-
+    refProducto.doc(producto.codigo).set(Object.assign({}, producto));
+  }
+  borrar(producto: Producto){
+    const refProducto = this.afs.collection("Producto");
+        let productoJSON = JSON.stringify(producto);
+        producto.activo = false;
     refProducto.doc(producto.codigo).set(Object.assign({}, producto));
   }
 
@@ -31,6 +34,7 @@ export class ProductosService {
   getProductos(): Observable<any[]>{
     return this.afs.collection('Producto',
       ref => ref.where('activo', '==', true)
-    ).valueChanges();
+    ).valueChanges().pipe(first());
   }
+ 
 }
