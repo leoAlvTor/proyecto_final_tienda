@@ -36,8 +36,11 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="stacked">Imagen:</ion-label>
+    <ion-label position="stacked">Imagen del producto:</ion-label>
     <ion-input [(ngModel)]="producto.imagen"></ion-input>
+    <ion-button>
+      <input type="file" class="upload" (change)="fileUpload($event.target.files)">
+    </ion-button>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Iva:</ion-label>
@@ -45,17 +48,17 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="stacked">nombre:</ion-label>
+    <ion-label position="stacked">Nombre:</ion-label>
     <ion-input [(ngModel)]="producto.nombre"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="stacked">proveedor:</ion-label>
+    <ion-label position="stacked">Proveedor:</ion-label>
     <ion-input [(ngModel)]="producto.proveedor"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="stacked">representacion:</ion-label>
+    <ion-label position="stacked">Representacion:</ion-label>
     <ion-input [(ngModel)]="producto.representacion"></ion-input>
   </ion-item>
 

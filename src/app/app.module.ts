@@ -10,9 +10,9 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-
+import { FileSizePipe } from './file-size.pipe';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,FileSizePipe],
   entryComponents: [],
   imports: [BrowserModule,
             IonicModule.forRoot(),

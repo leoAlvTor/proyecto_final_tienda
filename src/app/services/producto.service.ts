@@ -24,6 +24,26 @@ export class ProductosService {
         producto.activo = false;
     refProducto.doc(producto.codigo).set(Object.assign({}, producto));
   }
+  public read(coleccion){
+    return this.afs.collection(coleccion).snapshotChanges();
+  }
+
+  public async readById(coleccion, docId){
+    return await this.afs.collection(coleccion).doc(docId).get().toPromise();
+  }
+
+  public create(coleccion, datos){
+    return this.afs.collection(coleccion).add(datos);
+  }
+
+
+  public update(coleccion, docId, datos){
+    return this.afs.collection(coleccion).doc(docId).set(datos);
+  }
+
+  public delete(coleccion, docId){
+    return this.afs.collection(coleccion).doc(docId).delete();
+  }
 
   /*save(producto: Producto){
     producto.activo = true;
