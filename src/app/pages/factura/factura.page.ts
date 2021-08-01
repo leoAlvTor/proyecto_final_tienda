@@ -9,6 +9,8 @@ import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
 import {ModalProductoPage} from "../modal-producto/modal-producto.page";
 import {Factura_Detalle} from "../../modelo/factura_detalle";
 import {Factura_Cabecera} from "../../modelo/factura_cabecera";
+import firebase from "firebase";
+import DocumentReference = firebase.firestore.DocumentReference;
 
 @Component({
   selector: 'app-factura',
@@ -207,8 +209,24 @@ export class FacturaPage implements OnInit {
   }
 
   async crearFactura(){
-    if(await this.verificarDatos()){
-      console.log('EURREKA')
+    console.log('Llego 1')
+    if (await this.verificarDatos()) {
+      this.firebase.firebase.collection('Factura Cabecera').get().toPromise().then(snap=>{
+        this.factura_cabecera.id = snap.size+1;
+        this.createDetalles(this.factura_cabecera.id);
+        this.firebase.update('Factura Cabecera', String(this.factura_cabecera.id), JSON.parse(JSON.stringify(this.factura_cabecera)));
+        this.cliente = new Persona();
+        this.facturas_detalle = [];
+        this.factura_cabecera = new Factura_Cabecera();
+        this.producto = null;
+      })
+    }
+  }
+
+  async createDetalles(cabecera_id){
+    for (let i = 0; i < this.facturas_detalle.length; i++) {
+      this.facturas_detalle[i].id_factura_cabecera = String(cabecera_id);
+      await this.firebase.addDocument('Factura Detalle', JSON.parse(JSON.stringify(this.facturas_detalle[i])));
     }
   }
 
