@@ -50,6 +50,14 @@ const routes: Routes = [
   {
     path: 'clientehome',
     loadChildren: () => import('./pages/clientehome/clientehome.module').then( m => m.ClientehomePageModule)
+  },
+  {
+    path: 'detalleproducto',
+    loadChildren: () => import('./pages/detalleproducto/detalleproducto.module').then( m => m.DetalleproductoPageModule)
+  },
+  {
+    path: 'carrito',
+    loadChildren: () => import('./pages/carrito/carrito.module').then( m => m.CarritoPageModule)
   }
 
 

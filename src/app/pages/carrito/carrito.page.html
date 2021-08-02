@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Carrito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3 class="title">{{(productos.length)}} Productos agregados</h3>
+
+  <!--CART ITEMS-->
+  <ion-list  *ngFor="let p of productos; let indice = index ">
+    <br>
+    <div class="cart-item">
+      <div class="image">
+        <ion-img src="{{productos[indice].imagen}}"></ion-img>
+      </div>
+
+
+      <div class="description">
+        <h3>{{productos[indice].nombre}}</h3>
+        <p><sup>$</sup>{{productos[indice].precio | number:'1.2'}}</p>
+        <ion-button (click)="eliminarProducto(p)" color="danger">Eliminar producto</ion-button>
+      </div>
+
+      <div class="actions">
+        <ion-buttons>
+          <ion-button (click)="aumentarProducto(p)">
+            <ion-icon slot="start" name="add" ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <div class="counter">{{productos[indice].cantidad}}</div>
+
+        <ion-buttons>
+          <ion-button (click)="disminuirProducto(p)">
+            <ion-icon slot="start" name="remove" ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+      </div>
+
+    </div>
+
+
+
+  </ion-list>
+
+</ion-content>

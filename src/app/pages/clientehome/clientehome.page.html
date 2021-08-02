@@ -39,7 +39,7 @@
   <H3>Productos</H3>
   <div class="food-list" >
     <div class="card" *ngFor="let p of productos | async" >
-      <ion-img src="{{p.imagen}}"></ion-img>
+      <ion-img src="{{p.imagen}}"  (click)="detalleProducto(p)"></ion-img>
       <div class="card-content">
         <h3 class="nombre">{{p.nombre}}</h3>
 

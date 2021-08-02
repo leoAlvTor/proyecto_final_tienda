@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import {inicioSesion} from '../../modelo/inicioSesion';
 import {IniciosesionService} from '../../services/iniciosesion.service';
 import {Persona} from '../../modelo/persona';
+import {ToastController} from '@ionic/angular';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginPage implements OnInit {
   persona: Persona = new Persona();
 
   constructor(private route: Router, private afsAuth: AngularFireAuth,
-              private loginService: IniciosesionService ) { }
+              private loginService: IniciosesionService,private toastCtr: ToastController ) { }
 
   ngOnInit() {
   }
@@ -48,15 +49,25 @@ export class LoginPage implements OnInit {
           this.route.navigate(['folder/Home']);
         }else{
           this.route.navigate(['clientehome']);
+          localStorage.setItem('cliente',JSON.stringify(this.persona));
         }
+
       }
       catch(error){console.log('Error: ->', error);
+        this.presentToast();
         this.route.navigate(['login']);}
     });
   }
-
-
   signup() {
     this.route.navigate(['sign-up']);
+  }
+  async presentToast(){
+    const toast = await this.toastCtr.create({
+      message:'Credenciales Incorrectas.',
+      mode:'ios',
+      duration:2000,
+      position:'top'
+    });
+    toast.present();
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { Persona } from 'src/app/modelo/persona';
 
 @Component({
   selector: 'app-menucliente',
@@ -8,11 +9,18 @@ import {Router} from '@angular/router';
 })
 export class MenuclienteComponent implements OnInit {
 
+  cliente: Persona = new Persona();
+  nombreCliente: string;
+
   constructor(private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cliente = JSON.parse(localStorage.getItem('cliente'));
+    this.nombreCliente=this.cliente.Nombres;
+  }
 
   logOut() {
+    localStorage.removeItem('cliente');
     this.router.navigate(['login']);
   }
 }
