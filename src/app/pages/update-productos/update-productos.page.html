@@ -29,10 +29,15 @@
       <ion-input [(ngModel)]="producto.compra_unitario"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Imagen:</ion-label>
-      <ion-input [(ngModel)]="producto.imagen"></ion-input>
-    </ion-item>
+    
+  <ion-item>
+    <ion-label position="stacked">Imagen del producto:</ion-label>
+    <ion-input [(ngModel)]="producto.imagen"></ion-input>
+    <ion-button>
+      <input type="file" class="upload" (change)="fileUpload($event.target.files)">
+    </ion-button>
+  </ion-item>
+  
     <ion-item>
       <ion-label position="stacked">Iva:</ion-label>
       <ion-input [(ngModel)]="producto.iva"></ion-input>
