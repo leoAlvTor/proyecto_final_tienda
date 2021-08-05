@@ -19,6 +19,7 @@ export class ClientehomePage implements OnInit {
   ngOnInit() {
     this.getCategories();
     console.log(this.categorias);
+    this.listaproductos();
   }
 
   getCategories() {
@@ -70,5 +71,9 @@ export class ClientehomePage implements OnInit {
       }
     };
     this.router.navigate(['detalleproducto'],params);
+  }
+
+  listaproductos(){
+    this.productos=this.productoService.getProductos();
   }
 }

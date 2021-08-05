@@ -14,4 +14,7 @@ export class ProductoService {
     return this.afs.collection('Producto',
       ref => ref.where('categoria','==',categoria)).valueChanges();
   }
+  getProductos(): Observable<any[]>{
+    return this.afs.collection('Producto').valueChanges();
+  }
 }

@@ -1,5 +1,13 @@
-<ion-header>
+
+<ion-header [translucent]="true">
   <ion-toolbar>
+    <div class="home">
+    <ion-buttons slot="start">
+      <ion-button (click)="backHome()">
+        <ion-icon slot="icon-only" color="light" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </div>
     <ion-title>Carrito</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -38,11 +46,11 @@
         </ion-buttons>
 
       </div>
-
     </div>
 
-
-
   </ion-list>
+  <br>
+  <ion-button (click)="realizarPedido()"  class="total" expand="block" shape="round">Total : <span><sup></sup> {{ totalF  | number:'1.2' }} </span>
+  </ion-button>
 
 </ion-content>

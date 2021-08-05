@@ -20,4 +20,7 @@ export class CarritoService {
   obtenerProductos(){
     return this.productos;
   }
+  eliminarProductos(){
+    this.productos=[];
+  }
 }

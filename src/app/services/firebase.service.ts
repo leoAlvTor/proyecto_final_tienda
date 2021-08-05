@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
 
-  constructor(private firebase: AngularFirestore) { }
+  constructor(public firebase: AngularFirestore) { }
 
   public addDocument(collection: string, data: any){
     return this.firebase.collection(collection).add(data);
@@ -32,5 +33,11 @@ export class FirebaseService {
   public delete(collection: string, docID: string){
     return this.firebase.collection(collection).doc(docID).delete();
   }
+
+  public getPedidos(collection: string, field: string,fieldValue: string, field2: string, fieldValue2: string): Observable<any[]>{
+    return this.firebase.collection(collection,
+      ref => ref.where(field,'==',fieldValue).where(field2,'==',fieldValue2)).valueChanges();
+  }
+
 
 }

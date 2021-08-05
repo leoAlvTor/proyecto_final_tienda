@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="home">
+      <ion-buttons slot="start">
+        <ion-button (click)="backHome()">
+          <ion-icon slot="icon-only" color="light" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <ion-title>Carrito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1 style="text-align: center">Pedidos Activos</h1>
+
+    <ion-item  *ngFor="let p of pedidos | async" >
+      <ion-card color="warning" style="width: 80%">
+        <ion-card-header>
+          <ion-card-title>{{p.nombre_producto}}</ion-card-title>
+          <p>Numero de pedido: {{p.numero_pedido}}</p>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>Cantidad: {{p.cantidad}}</h2>
+          <p>Total :{{p.total}}</p>
+        </ion-card-content>
+        <ion-label style="text-align: center;background-color: #6b45bc;">{{p.estado}}</ion-label>
+      </ion-card>
+    </ion-item>
+
+  <ion-button expand="block"  [disabled]="condition">Call center</ion-button>
+</ion-content>

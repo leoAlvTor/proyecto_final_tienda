@@ -42,6 +42,7 @@ export class DetalleproductoPage implements OnInit {
     console.log('Carrito', this.carrito);
     this.carritoService.agregarProducto(this.carrito);
     this.presentToast();
+    this.router.navigate(['clientehome'])
   }
 
   async presentToast(){

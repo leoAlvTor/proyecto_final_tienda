@@ -23,4 +23,17 @@ export class MenuclienteComponent implements OnInit {
     localStorage.removeItem('cliente');
     this.router.navigate(['login']);
   }
+
+  carrito() {
+    this.router.navigate(['carrito']);
+
+  }
+
+  inicio() {
+    this.router.navigate(['clientehome']);
+  }
+
+  pedidos() {
+    this.router.navigate(['pedidos']);
+  }
 }
