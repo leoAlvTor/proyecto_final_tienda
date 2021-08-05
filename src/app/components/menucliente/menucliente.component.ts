@@ -10,13 +10,11 @@ import { Persona } from 'src/app/modelo/persona';
 export class MenuclienteComponent implements OnInit {
 
   cliente: Persona = new Persona();
-  nombreCliente: string;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.cliente = JSON.parse(localStorage.getItem('cliente'));
-    this.nombreCliente=this.cliente.Nombres;
+
   }
 
   logOut() {

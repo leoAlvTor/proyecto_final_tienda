@@ -55,6 +55,7 @@ export class SignUpPage implements OnInit {
     this.persona.Ubicacion=this.latitudGoogle.toString()+','+this.longitudGoogle.toString();
     //Se almacena el usuario inicado con google
     this.personaService.addPerson(this.persona);
+    localStorage.setItem('cliente',JSON.stringify(this.persona));
 
     this.router.navigate(['clientehome']);
   }
