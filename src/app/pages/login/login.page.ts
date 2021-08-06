@@ -5,6 +5,8 @@ import * as firebase from 'firebase/app';
 import {inicioSesion} from '../../modelo/inicioSesion';
 import {IniciosesionService} from '../../services/iniciosesion.service';
 import {Persona} from '../../modelo/persona';
+import {ToastController} from '@ionic/angular';
+import {LocationService} from '../../services/location.service';
 
 
 @Component({
@@ -16,10 +18,18 @@ export class LoginPage implements OnInit {
   inicioSesion: inicioSesion = new inicioSesion();
   persona: Persona = new Persona();
 
-  constructor(private route: Router, private afsAuth: AngularFireAuth,
-              private loginService: IniciosesionService ) { }
+  latitudGoogle: any;
+  longitudGoogle: any;
+  currentLocation: any;
 
-  ngOnInit() {
+  constructor(private route: Router, private afsAuth: AngularFireAuth,
+              private loginService: IniciosesionService,private toastCtr: ToastController,
+              private locationService: LocationService ) { }
+
+  async ngOnInit() {
+    this.currentLocation = await this.locationService.getCurrentLocation(false);
+    this.latitudGoogle=this.currentLocation['latitude'];
+    this.longitudGoogle=this.currentLocation['longitude'];
   }
    async loginWithGoogle(){
     console.log('Logeando con GOOGLE.');
@@ -30,7 +40,17 @@ export class LoginPage implements OnInit {
     const lastn=user.additionalUserInfo.profile['family_name'];
     const messge=' Hola  '+ name +' ' + lastn;
     alert(messge);
-    this.route.navigate(['folder/Home']);
+     //Se crea el nuevo usuario y se registra
+     this.persona.Activo=true;
+     this.persona.Codigo=user.additionalUserInfo.profile['id'];
+     this.persona.Contrasena=user.additionalUserInfo.profile['id'];
+     this.persona.Correo=user.additionalUserInfo.profile['email'];
+     this.persona.Nombres=user.additionalUserInfo.profile['given_name'] +' '+ user.additionalUserInfo.profile['family_name'];
+     this.persona.Rol='Cliente';
+     //Obtencion de la ubicacion
+     this.persona.Ubicacion=this.latitudGoogle.toString()+','+this.longitudGoogle.toString();
+     localStorage.setItem('cliente',JSON.stringify(this.persona));
+     this.route.navigate(['clientehome']);
   }
 
   loginWithFacebook(){
@@ -47,16 +67,26 @@ export class LoginPage implements OnInit {
         if(this.persona.Codigo==cedula && this.persona.Contrasena==contrasena && this.persona.Rol=='Administrador'){
           this.route.navigate(['folder/Home']);
         }else{
-          this.route.navigate(['clientes']);
+          this.route.navigate(['clientehome']);
+          localStorage.setItem('cliente',JSON.stringify(this.persona));
         }
+
       }
       catch(error){console.log('Error: ->', error);
+        this.presentToast();
         this.route.navigate(['login']);}
     });
   }
-
-
   signup() {
     this.route.navigate(['sign-up']);
+  }
+  async presentToast(){
+    const toast = await this.toastCtr.create({
+      message:'Credenciales Incorrectas.',
+      mode:'ios',
+      duration:2000,
+      position:'top'
+    });
+    toast.present();
   }
 }

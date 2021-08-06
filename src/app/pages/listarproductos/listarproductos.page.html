@@ -1,0 +1,62 @@
+
+<ion-app>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>PRODUCTOS</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<!--<ion-content fullscreen]="true">
+  <ion-searchbar placeholder="Buscar Producto" showcancelbutton=""(ionInput)="filterList($event)"></ion-searchbar>
+  <ion-item-divider>Mis Productos:</ion-item-divider>
+  <ion-list lines="none">
+    <div *ngFor="let producto of productos">
+      <ion-item >
+        <ion-card color="light" >
+          <img [src]="producto.imagen">
+          <ion-card-header>
+            <p>Codigo:
+              <ion-card-subtitle>{{producto.codigo}}</ion-card-subtitle></p>
+            <p>Nombre Producto:
+              <ion-card-title>{{producto.nombre}}</ion-card-title></p>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Stock:
+              <strong>{{producto.stock_unitario}}</strong></p>
+            <p>Precio Venta:
+              <strong>{{producto.compra_unitario}}</strong></p>
+          </ion-card-content>
+          <ion-button (click)="editarProducto(producto)"color="primary" expand="block" >Edit Product</ion-button>
+          <ion-button (click)="borrarProducto(producto)" color="warning" expand="block" >Delete Product</ion-button>
+        </ion-card>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>-->
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar placeholder="Buscar Producto por nombre o codigo" showcancelbutton=""(ionInput)="filterList($event)"></ion-searchbar>
+  <ion-item-divider>Mis Productos:</ion-item-divider>
+  <ion-list lines="none">
+    <ion-item *ngFor="let producto of productos">
+      <ion-label class="ion-text-wrap">
+        <img [src]="producto.imagen">
+        <ion-text color="primary">
+          <h3>{{ producto.nombre }}</h3>
+        </ion-text>
+        <p><strong>Codigo :</strong>{{ producto.codigo }}</p> 
+        <p><strong>Stock : </strong>{{producto.stock_unitario}}</p>
+        <p><strong>Precio Compra : </strong>{{producto.compra_unitario}}</p>
+        <ion-button (click)="editarProducto(producto)"color="primary" expand="block" >Edit Product</ion-button>
+        <ion-button  (click)="borrarProducto(producto)"  color="warning" expand="block" >Delete</ion-button>
+        <ion-item-divider></ion-item-divider>
+      </ion-label>
+      
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+</ion-app>

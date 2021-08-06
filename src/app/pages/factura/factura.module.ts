@@ -9,12 +9,12 @@ import { FacturaPageRoutingModule } from './factura-routing.module';
 import { FacturaPage } from './factura.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FacturaPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        FacturaPageRoutingModule
+    ],
   declarations: [FacturaPage]
 })
 export class FacturaPageModule {}

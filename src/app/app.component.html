@@ -27,15 +27,19 @@
         </ion-item>
         <br>
         <ion-item>
-          <ion-icon  name="bag-handle-outline"></ion-icon> Productos
+          <ion-icon  (click)="productos()" name="bag-handle-outline"></ion-icon> Productos
         </ion-item>
         <br>
         <ion-item>
-          <ion-icon  name="bag-add-outline"></ion-icon> Agregar Producto
+          <ion-icon (click)="agregarproducto()" name="bag-add-outline"></ion-icon> Agregar Producto
         </ion-item>
         <br>
         <ion-item (click)="facturas()">
           <ion-icon  name="clipboard-outline"></ion-icon> Facturas
+        </ion-item>
+        <br>
+        <ion-item (click)="pedido()">
+          <ion-icon  name="cube-outline"></ion-icon> Pedidos
         </ion-item>
 
       </ion-list>

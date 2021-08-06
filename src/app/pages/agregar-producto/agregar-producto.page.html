@@ -1,0 +1,91 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Crear....</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img src="assets/productsicon.png">
+  <h1 style="text-align:center">AGREGAR PRODUCTO</h1>
+
+  <ion-item>
+    <ion-label position="stacked">Codigo:</ion-label>
+    <ion-input [(ngModel)]="producto.codigo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Cantidad Interna:</ion-label>
+    <ion-input [(ngModel)]="producto.cantidad_interna"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked"> Categoria:</ion-label>
+    <!-- <ion-input [(ngModel)]="contacto.apellido">{{contacto.apellido}}</ion-input>-->
+    <ion-input [(ngModel)]="producto.categoria"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Compra Paquete:</ion-label>
+    <ion-input [(ngModel)]="producto.compra_paquete"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Compra Unitario:</ion-label>
+    <ion-input [(ngModel)]="producto.compra_unitario"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Imagen del producto:</ion-label>
+    <ion-input [(ngModel)]="producto.imagen"></ion-input>
+    <ion-button>
+      <input type="file" class="upload" (change)="fileUpload($event.target.files)">
+    </ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Iva:</ion-label>
+    <ion-input [(ngModel)]="producto.iva"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Nombre:</ion-label>
+    <ion-input [(ngModel)]="producto.nombre"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Proveedor:</ion-label>
+    <ion-input [(ngModel)]="producto.proveedor"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Representacion:</ion-label>
+    <ion-input [(ngModel)]="producto.representacion"></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label position="stacked">Stock Paquete:</ion-label>
+    <ion-input [(ngModel)]="producto.stock_paquete"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Stock Unitario:</ion-label>
+    <ion-input [(ngModel)]="producto.stock_unitario"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Venta Paquete:</ion-label>
+    <ion-input [(ngModel)]="producto.venta_paquete"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Venta Unidad:</ion-label>
+    <ion-input [(ngModel)]="producto.venta_unidad"></ion-input>
+  </ion-item>
+
+  <br>
+  <br>
+  <br>
+
+  <ion-button color="success" expand="full" (click)="add()">Agregar</ion-button>
+</ion-content>

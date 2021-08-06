@@ -9,42 +9,167 @@
 
 <ion-content>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-card >
-          <ion-card-header>
-            <ion-card-title>Cliente</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-grid *ngIf="cliente">
-              <ion-row>
-                <ion-col><ion-input #cedula [(ngModel)]="cliente.Codigo">Cedula:</ion-input></ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col><ion-input [(ngModel)]="cliente.Nombres">Nombre:</ion-input></ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col><ion-input [(ngModel)]="cliente.Ubicacion">Direccion:</ion-input></ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col><ion-input [(ngModel)]="cliente.Correo">Correo:</ion-input></ion-col>
-              </ion-row>
+  <ion-col>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Cliente</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid *ngIf="cliente">
+          <ion-row>
+            <ion-col>
+              <ion-input #cedula [(ngModel)]="cliente.Codigo">Cedula:</ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input [(ngModel)]="cliente.Nombres">Nombre:</ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input [(ngModel)]="cliente.Ubicacion">Direccion:</ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input [(ngModel)]="cliente.Correo">Correo:</ion-input>
+            </ion-col>
+          </ion-row>
 
-              <ion-row>
-                <ion-col>
-                  <ion-button (click)="createModal()" expand="block">Buscar Cliente</ion-button>
-                </ion-col>
-                <ion-col>
-                  <ion-button (click)="cleanInputs()" expand="block" color="danger">Limpiar</ion-button>
-                </ion-col>
-              </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="createModal()" expand="block">Buscar Cliente</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="cleanInputs()" expand="block" color="danger">Limpiar</ion-button>
+            </ion-col>
+          </ion-row>
 
-            </ion-grid>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Buscar Productos</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid>
+
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="initModal('codigo')">Buscar Por Codigo</ion-button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="initModal('nombre')">Buscar Por Nombre</ion-button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" color="secondary" (click)="startBarCodeScanner()">
+                <ion-icon
+                  name="camera"></ion-icon>
+                Escanear
+                Codigo
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-card-content>
+
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Detalles</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <ion-list>
+
+          <ion-list-header>
+            <ion-label>ID</ion-label>
+            <ion-label>TOTAL</ion-label>
+          </ion-list-header>
+
+          <ion-item-sliding *ngFor="let detalle of facturas_detalle">
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-label>{{detalle.id_producto}}</ion-label>
+                  </ion-col>
+                  <ion-col>
+                    <ion-label>{{detalle.total}}</ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-button (click)="modificarRegistro(detalle.cantidad, detalle.id_producto)" color="secondary">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button (click)="eliminarRegistro(facturas_detalle.indexOf(detalle))" color="danger">
+                <ion-icon
+                  name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+        <ion-row *ngIf="ultimoDetalleEliminado">
+          <ion-col>
+            <ion-button (click)="recuperarUltimoDetalle()" expand="block" color="warning">Recuperar
+              ultimo registro
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="cell-class">
+            <ion-col><label>Subtotal 0%:</label></ion-col>
+            <ion-col><label>{{factura_cabecera.subtotal0}}</label></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><label>Subtotal 12%:</label></ion-col>
+            <ion-col><label>{{factura_cabecera.subtotal12}}</label></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><label>Valor IVA:</label></ion-col>
+            <ion-col><label>{{factura_cabecera.iva12}}</label></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><label>Total:</label></ion-col>
+            <ion-col><label>{{factura_cabecera.total}}</label></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content *ngIf="facturas_detalle.length > 0">
+        <ion-col>
+          <ion-button (click)="crearFactura()" expand="block" color="success">CREAR FACTURA</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" color="warning">CANCELAR</ion-button>
+        </ion-col>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-col>
+
 
 </ion-content>

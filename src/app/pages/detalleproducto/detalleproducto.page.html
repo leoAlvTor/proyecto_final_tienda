@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="header">
+    <ion-buttons>
+      <ion-button (click)="backHome()">
+        <ion-icon slot="icon-only" color="light" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <br>
+    <ion-buttons>
+      <ion-button>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <!--<ion-icon slot="icon-only" color="light" name="heart-outline"></ion-icon>-->
+      </ion-button>
+    </ion-buttons>
+
+  </div>
+  <!--PRODUCT DETAILS-->
+  <div class="card">
+    <div class="image">
+      <ion-img src={{producto.imagen}}></ion-img>
+    </div>
+    <div class="card-content">
+      <div class="card-tittle">
+        <h1 class="ion-no-margin">{{producto.nombre}}</h1>
+        <p  class="ion-no-margin"><sup>$</sup> {{producto.venta_unidad|number:'1.2'}} </p>
+      </div>
+    </div>
+
+    <!--ABOUT-->
+    <div class="about">
+      <ion-label>Proveedor : <p>{{producto.proveedor}}</p></ion-label>
+      <ion-label>Cantidad : <p>{{producto.cantidad_interna}} </p></ion-label>
+      <ion-label>Iva : <p>{{producto.iva}} %</p></ion-label>
+      <ion-label>Disponibles : <p>{{producto.stock_unitario}} Unidades</p></ion-label>
+    </div>
+    <!--ADD TO CART-->
+    <div class="button">
+      <ion-button expand="block" (click)="agregarproducto()">Agregar al carrito</ion-button>
+    </div>
+  </div>
+
+
+
+</ion-content>
