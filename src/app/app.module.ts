@@ -10,7 +10,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AgmCoreModule} from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
@@ -21,13 +21,10 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
             AppRoutingModule,
             AngularFireModule.initializeApp(environment.firebaseConfig),
             AngularFirestoreModule,
-            AngularFireAuthModule],
-  providers: [BarcodeScanner, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
             AngularFireAuthModule,
             AgmCoreModule.forRoot({
-            apiKey: ''})
-  ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+              apiKey: ''})],
+  providers: [BarcodeScanner, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

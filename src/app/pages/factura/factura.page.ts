@@ -209,7 +209,6 @@ export class FacturaPage implements OnInit {
   }
 
   async crearFactura(){
-    console.log('Llego 1')
     if (await this.verificarDatos()) {
       this.firebase.firebase.collection('Factura Cabecera').get().toPromise().then(snap=>{
         this.factura_cabecera.id = snap.size+1;
