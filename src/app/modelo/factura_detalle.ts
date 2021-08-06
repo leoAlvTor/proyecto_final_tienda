@@ -1,8 +1,8 @@
 export class Factura_Detalle {
-  id_documento: string
   id_factura_cabecera: string
   id_producto: string
-  cantidad: number
+  cantidad: number = 1;
+  representacion: string
   precio_unitario: number
   precio_paquete: number
   total: number

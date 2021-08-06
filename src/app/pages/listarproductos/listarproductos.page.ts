@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NavigationExtras, Router} from '@angular/router';
-import {ProductosService} from '../../services/producto.service';
+import {ProductoService} from '../../services/producto.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { first } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { from, Observable } from 'rxjs';
 })
 export class ListarproductosPage implements OnInit {
 
-  constructor(private router:Router, private productosService: ProductosService,private firestore: AngularFirestore) {}
+  constructor(private router:Router, private productosService: ProductoService,private firestore: AngularFirestore) {}
 
    productos: any;
    productosBackup: any;
@@ -32,9 +32,9 @@ export class ListarproductosPage implements OnInit {
   }
   async filterList(evt) {
    this.productos = await this.initializeItems();
-    
+
     const searchTerm = evt.srcElement.value;
-  
+
     if (!searchTerm) {
       return;
     }
@@ -44,7 +44,7 @@ export class ListarproductosPage implements OnInit {
       }
     });
   }
-  
+
   async editarProducto(producto: any) {
     console.log('Se procede a editar el producto');
     console.log(producto);
@@ -61,7 +61,7 @@ export class ListarproductosPage implements OnInit {
     console.log('Producto a Eliminar :', productos);
     this.productos=productos;
     this.productosService.borrar(this.productos);
-    //this.productos =  this.productosService.getProductos(); 
+    //this.productos =  this.productosService.getProductos();
     this.productos = await this.initializeItems();
   }
 }

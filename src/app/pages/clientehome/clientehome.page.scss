@@ -1,0 +1,140 @@
+ion-content{
+  --padding-start: 2rem;
+  --padding-end: 2rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #515151;
+      margin: 0;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+
+      ion-img {
+        width: 90%;
+        height: 90%;
+      }
+    }
+  }
+}
+ion-searchbar {
+  --box-shadow: none;
+  --background: #f3f3f3;
+  --border-radius: 1.2rem;
+  --placeholder-font-weight: 600;
+  --placeholder-opacity: 0.2;
+
+  padding: 0;
+  margin-bottom: 2rem;
+}
+.categories{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-gap: 1rem;
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    .image-card {
+      background-color: #f3f3f3;
+      padding: 0.8rem;
+      border-radius: 1.5rem;
+      margin-bottom: 0.5rem;
+
+      ion-img {
+        opacity: 0.8;
+      }
+    }
+
+    p {
+      color: #c7c7c7;
+    }
+  }
+
+  .wrapper.active {
+    .image-card {
+      background-color: #6b45bc;
+    }
+
+    p {
+      color: #1d1d1d;
+      font-weight: 600;
+    }
+  }
+}
+.food-list{
+  display: grid;
+  grid-template-columns: 1ref 1ref;
+  grid-gap: 1rem;
+}
+.card{
+  width: 90%;
+  padding: 1.6rem 2rem;
+  background: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border-radius: 2.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 5%;
+}
+
+.card-content{
+  text-align: center;
+
+  .nombre{
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+    color: #1d1d1d;
+  }
+  .precio{
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffb800;
+    margin-top: 0;
+    sup{
+      font-size: 1rem;
+      margin-right: 2px;
+
+    }
+  }
+  ion-buttons{
+    position: absolute;
+    bottom: -0rem;
+    left: 43%;
+    transform: translateX(-40x);
+    border-radius: 80%;
+  }
+  ion-button{
+    --background:#6b45bc;
+    font-weight: 700;
+    color: #fff;
+    width: 38px;
+    height: 38px;
+    border-radius: 80%;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+  }
+}

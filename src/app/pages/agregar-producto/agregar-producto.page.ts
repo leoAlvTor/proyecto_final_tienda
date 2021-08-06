@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Producto} from "../../modelo/producto";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ProductosService} from "../../services/producto.service";
+import {ProductoService} from "../../services/producto.service";
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-
 import {AngularFireStorage, AngularFireUploadTask} from "@angular/fire/storage";
 export interface FILE{
   name: string;
@@ -28,7 +27,7 @@ export class AgregarProductoPage implements OnInit {
   productos: any;
   //@ts-ignore
   producto: Producto = new Producto();
-  constructor(private servicio: ProductosService, private angularFirestore: AngularFirestore,
+  constructor(private servicio: ProductoService, private angularFirestore: AngularFirestore,
               private angularFireStorage: AngularFireStorage) {
     //@ts-ignore
     this.producto = new Producto();

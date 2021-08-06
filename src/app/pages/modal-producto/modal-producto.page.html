@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>modal-producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div align="center">
+
+    <ion-card *ngIf="producto">
+      <ion-card-header color="success">
+        <ion-card-title>
+          {{producto.nombre.toUpperCase()}}
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <ion-grid>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Cantidad:</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-input type="number" placeholder="Ingrese la cantidad" [(ngModel)]="facturaDetalle.cantidad"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>PVP. Unitario:</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-input type="number" [(ngModel)]="producto.venta_unidad"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>PVP Paquete:</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-input type="number" [(ngModel)]="producto.venta_paquete"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Stock Unitario:</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-input type="number" disabled="true" [(ngModel)]="producto.stock_unitario"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label>Stock Paquete:</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-input type="number" disabled="true" [(ngModel)]="producto.stock_paquete"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" color="warning" (click)="returnToFactura('unidad')">Agregar Unidad</ion-button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="producto">
+            <ion-col>
+              <ion-button [disabled]="checkIfValid()" expand="block" color="danger" (click)="returnToFactura('paquete')">Agregar
+                Paquete</ion-button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+              <ion-col>
+                <div class="ion-text-right">
+                  <ion-button (click)="exit()"><ion-icon name="exit"></ion-icon>Cancelar</ion-button>
+                </div>
+              </ion-col>
+          </ion-row>
+
+        </ion-grid>
+
+      </ion-card-content>
+
+    </ion-card>
+
+  </div>
+</ion-content>

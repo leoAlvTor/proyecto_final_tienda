@@ -8,7 +8,7 @@ import { Producto } from '../modelo/producto';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductosService {
+export class ProductoService {
   productosBackup: any;
   constructor(public afs: AngularFirestore) { }
 
@@ -51,10 +51,18 @@ export class ProductosService {
     return this.afs.collection('Producto').doc(producto.codigo).set(Object.assign({}, producto))
   }*/
 
-  getProductos(): Observable<any[]>{
+  getProductos1(): Observable<any[]>{
     return this.afs.collection('Producto',
       ref => ref.where('activo', '==', true)
     ).valueChanges().pipe(first());
   }
- 
+  getproductobyCategory(categoria:string): Observable<any[]>{
+    console.log('Esta es a categoria',categoria);
+    return this.afs.collection('Producto',
+      ref => ref.where('categoria','==',categoria)).valueChanges();
+  }
+  getProductos(): Observable<any[]>{
+    return this.afs.collection('Producto').valueChanges();
+  }
+
 }

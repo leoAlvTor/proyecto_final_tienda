@@ -1,4 +1,5 @@
 export class Producto {
+
   cantidad_interna: string;
   categoria: string;
   codigo: string;
@@ -14,7 +15,6 @@ export class Producto {
   venta_unidad: string;
   activo: boolean;
   imagen:string;
-
 
 
 
@@ -34,5 +34,4 @@ export class Producto {
     this.venta_paquete = venta_paquete;
     this.venta_unidad = venta_unidad;
   }
-
 }

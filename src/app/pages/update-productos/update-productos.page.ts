@@ -4,7 +4,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import {Producto} from '../../modelo/producto';
-import {ProductosService} from '../../services/producto.service';
+import {ProductoService} from '../../services/producto.service';
 export interface FILE{
   name: string;
   filepath: string;
@@ -29,7 +29,7 @@ export class UpdateProductosPage implements OnInit {
   productos: any;
 
   constructor(private router: Router, private route: ActivatedRoute,
-              private productosService: ProductosService,private angularFirestore: AngularFirestore,
+              private productosService: ProductoService,private angularFirestore: AngularFirestore,
               private angularFireStorage: AngularFireStorage) {
 
                 this.isImgUploading = false;

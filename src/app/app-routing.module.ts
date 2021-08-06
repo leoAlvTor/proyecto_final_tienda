@@ -59,8 +59,39 @@ const routes: Routes = [
   {
     path: 'update-productos',
     loadChildren: () => import('./pages/update-productos/update-productos.module').then(m => m.UpdateProductosPageModule)
+  },
+  {
+    path: 'mapa',
+    loadChildren: () => import('./pages/mapa/mapa.module').then( m => m.MapaPageModule)
+  },
+  {
+    path: 'modal-factura',
+    loadChildren: () => import('./pages/modal-factura/modal-factura.module').then( m => m.ModalFacturaPageModule)
+  },
+  {
+    path: 'modal-producto',
+    loadChildren: () => import('./pages/modal-producto/modal-producto.module').then( m => m.ModalProductoPageModule)
+  },
+  {
+    path: 'clientehome',
+    loadChildren: () => import('./pages/clientehome/clientehome.module').then( m => m.ClientehomePageModule)
+  },
+  {
+    path: 'detalleproducto',
+    loadChildren: () => import('./pages/detalleproducto/detalleproducto.module').then( m => m.DetalleproductoPageModule)
+  },
+  {
+    path: 'carrito',
+    loadChildren: () => import('./pages/carrito/carrito.module').then( m => m.CarritoPageModule)
+  },
+  {
+    path: 'pedidos',
+    loadChildren: () => import('./pages/pedidos/pedidos.module').then( m => m.PedidosPageModule)
+  },
+  {
+    path: 'pedidos-admin',
+    loadChildren: () => import('./pages/pedidos-admin/pedidos-admin.module').then( m => m.PedidosAdminPageModule)
   }
-
 
 
 

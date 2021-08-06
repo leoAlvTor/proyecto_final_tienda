@@ -11,6 +11,9 @@ import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import { FileSizePipe } from './file-size.pipe';
+import { AgmCoreModule } from '@agm/core';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 @NgModule({
   declarations: [AppComponent,FileSizePipe],
   entryComponents: [],
@@ -19,8 +22,10 @@ import { FileSizePipe } from './file-size.pipe';
             AppRoutingModule,
             AngularFireModule.initializeApp(environment.firebaseConfig),
             AngularFirestoreModule,
-            AngularFireAuthModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+            AngularFireAuthModule,
+            AgmCoreModule.forRoot({
+              apiKey: ''})],
+  providers: [BarcodeScanner, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
