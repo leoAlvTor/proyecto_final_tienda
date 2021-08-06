@@ -23,6 +23,11 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
             AngularFirestoreModule,
             AngularFireAuthModule],
   providers: [BarcodeScanner, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+            AngularFireAuthModule,
+            AgmCoreModule.forRoot({
+            apiKey: ''})
+  ],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
