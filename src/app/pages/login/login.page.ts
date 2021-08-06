@@ -73,16 +73,17 @@ export class LoginPage implements OnInit {
 
       }
       catch(error){console.log('Error: ->', error);
-        this.presentToast();
+        this.presentToast(error);
         this.route.navigate(['login']);}
+        this.route.navigate(['folder/Home']);
     });
   }
   signup() {
     this.route.navigate(['sign-up']);
   }
-  async presentToast(){
+  async presentToast(mensaje){
     const toast = await this.toastCtr.create({
-      message:'Credenciales Incorrectas.',
+      message:mensaje,
       mode:'ios',
       duration:2000,
       position:'top'
