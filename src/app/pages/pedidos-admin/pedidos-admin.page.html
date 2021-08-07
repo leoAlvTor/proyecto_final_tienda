@@ -21,8 +21,8 @@
         <ion-card-content>
           <h2>Cantidad: {{p.cantidad}}</h2>
           <p>Total :{{p.total}}</p>
-          <ion-button color="success" expand="full" >En camino &nbsp;  <ion-icon name="bicycle"> </ion-icon> </ion-button>
-          <ion-button color="success" expand="full" >Entregado </ion-button>
+          <ion-button color="success" expand="block" (click)="enCamino(p)"  >En camino &nbsp;  <ion-icon name="bicycle"> </ion-icon> </ion-button>
+          <ion-button color="success" expand="block" (click)="entregado(p)" >Entregado &nbsp;  <ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
 
         </ion-card-content>
 

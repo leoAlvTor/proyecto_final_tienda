@@ -19,7 +19,7 @@ export class PedidosPage implements OnInit {
   ngOnInit() {
     this.cliente = JSON.parse(localStorage.getItem('cliente'));
     this.nombre=this.cliente.Nombres;
-    this.pedidos=this.firebas.getPedidos('pedidos','id_cliente',this.cliente.Codigo,'estado','Solicitado');
+    this.pedidos=this.firebas.getPedidos('pedidos','id_cliente',this.cliente.Codigo,'estado','solicitado');
     if(this.pedidos===undefined){
       console.log('Tiene Pedidos');
     }else{

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore} from "@angular/fire/firestore";
-import {Observable} from "rxjs";
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
+import {Persona} from "../modelo/persona";
+import {pedido} from "../modelo/pedido";
+import firebase from "firebase";
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +43,25 @@ export class FirebaseService {
   }
   getPedidosTotales(): Observable<any[]>{
     return this.firebase.collection('pedidos').valueChanges();
+  }
+
+  getProductosByName(nombre: string): Observable<any>{
+    return this.firebase.collection('Producto',
+      ref => ref.where('nombre','==',nombre)).valueChanges();
+  }
+
+  addPedido(pedidos: pedido){
+    const refPersona = this.firebase.collection('pedidos');
+    if(pedidos.pid==null){
+      pedidos.pid=this.firebase.createId();
+    }
+    refPersona.doc(pedidos.pid).set(Object.assign({}, pedidos)).then(r => console.log(''));
+  }
+  public addDocuments(collection: string, data: pedido){
+    if(data.pid==null){
+      data.pid=this.firebase.createId();
+    }
+    return this.firebase.collection(collection).doc(data.pid).set(data);
   }
 
 }

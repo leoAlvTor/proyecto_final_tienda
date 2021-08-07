@@ -75,6 +75,7 @@ export class LoginPage implements OnInit {
       catch(error){console.log('Error: ->', error);
         this.presentToast();
         this.route.navigate(['login']);}
+
     });
   }
   signup() {

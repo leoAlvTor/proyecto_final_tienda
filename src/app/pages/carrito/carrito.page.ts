@@ -154,7 +154,7 @@ export class CarritoPage implements OnInit {
         console.log('Este es el nuevo id',this.id_pedido);
         console.log(this.productos[index].nombre);
         this.pedido.numero_pedido=this.id_pedido.toString();
-        this.pedido.estado='Solicitado';
+        this.pedido.estado='solicitado';
         this.pedido.nombre_producto=this.productos[index].nombre;
         this.pedido.id_cliente=this.cliente.Codigo;
         this.pedido.cantidad=this.productos[index].cantidad;
@@ -162,7 +162,8 @@ export class CarritoPage implements OnInit {
 
         console.log('Este es el pedido',this.pedido);
         console.log('Nombre',this.pedido.nombre_producto,'cantidad',this.pedido.cantidad);
-        this.fire.addDocument('pedidos',JSON.parse(JSON.stringify(this.pedido)));
+        //this.fire.addPedido(this.pedido);
+        this.fire.addDocuments('pedidos',JSON.parse(JSON.stringify(this.pedido)));
       }
       this.limpiarPedidos();
       console.log('lista limpia de productos',this.productos);
