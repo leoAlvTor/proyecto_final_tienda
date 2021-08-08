@@ -62,7 +62,7 @@ export class ProductoService {
       ref => ref.where('categoria','==',categoria)).valueChanges();
   }
   getProductos(): Observable<any[]>{
-    return this.afs.collection('Producto').valueChanges();
+    return this.afs.collection('Producto',ref => ref.where('activo', '==', true)).valueChanges();
   }
 
 }
