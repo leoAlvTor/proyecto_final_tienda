@@ -8,6 +8,9 @@ import {DashboardService} from "../../services/dashboard.service";
 import {Factura_Cabecera} from "../../modelo/factura_cabecera";
 import {Producto} from "../../modelo/producto";
 import {map} from "rxjs/operators";
+import {ProductoService} from "../../services/producto.service";
+import {FirebaseService} from "../../services/firebase.service";
+import {pedido} from "../../modelo/pedido";
 
 Chart.register(ArcElement,  LineElement,  BarElement,  PointElement,  BarController,  BubbleController,
   DoughnutController,  LineController,  PieController,  PolarAreaController,  RadarController,  ScatterController,
@@ -29,73 +32,109 @@ export class DashboardPage implements AfterViewInit{
   doughnutChart: any;
   lineChart: any;
 
-  productos: Promise<Producto[]>;
+  productos: any;
+  pedidos: any
   facturas_cabecera: any;
 
-  constructor(private dashboard_service: DashboardService) {
-    this.productos = this.dashboard_service.getProducts();
-    this.facturas_cabecera = this.dashboard_service.getFacturas();
+  constructor(private firebaseService: FirebaseService) {
+    this.productos = new Array<Producto>();
+    this.facturas_cabecera = new Array<Factura_Cabecera>();
+    this.pedidos = new Array<pedido>();
+  }
 
-    this.productos.then(value => {
-      this.llenarDatos(value, 1);
+  async getProductos(){
+     this.firebaseService.getDocuments('Producto').subscribe((data)=>{
+       data.forEach(e=>{
+         this.productos.push(e.payload.doc.data());
+       })
+       this.mapCategoriaCantidad();
+     })
+  }
+
+  async getFacturas(){
+    this.firebaseService.getDocuments('Factura Cabecera').subscribe((data)=>{
+      data.forEach(e=>{
+        this.facturas_cabecera.push(e.payload.doc.data());
+      })
+      this.mapDiaTotal();
     })
   }
 
-  ngAfterViewInit() {
-    this.barChartMethod();
-    this.doughnutChartMethod();
-    this.lineChartMethod();
+  async getPedidos(){
+    this.firebaseService.getDocuments('pedidos').subscribe((data)=>{
+      data.forEach(e=>{
+        this.pedidos.push(e.payload.doc.data());
+      })
+      this.mapEstadoPedido();
+    })
   }
 
-  private llenarDatos(data, source){
-    if (source === 1)
-      this.setProductosPorCategoria(data)
-    else if(source === 2)
-      this.setVentasPorDia(data)
-    else if (source === 3)
-      this.setVentasPorMes(data)
-    else if (source === 4)
-      this.setTopClientes(data)
+  async mapDiaTotal(){
+    let result = [];
+    this.facturas_cabecera.reduce(function (res, value) {
+      if(!res[value.fecha]){
+        res[value.fecha] = {fecha: value.fecha, total: 0};
+        result.push(res[value.fecha])
+      }
+      res[value.fecha].total += value.total
+      return res;
+    }, {});
+    let fecha = [];
+    let total = [];
+
+    for (let i = 0; i < result.length; i++) {
+      fecha.push(result[i].fecha.split('T')[0])
+      total.push(result[i].total)
+    }
+    this.lineChartMethod(fecha, total);
   }
 
+  mapCategoriaCantidad(){
+    let mapa = new Map<string, number>();
 
-  private setProductosPorCategoria(data){
-    let categoriaCantidad = new Map<string, number>();
-    console.log(data)
-    for (let i = 0; i < data.length; i++) {
-      if(categoriaCantidad.has(data[i].categoria)){
-        console.log('ENTRO')
-        let cantidad = categoriaCantidad.get(data[i].categoria)+1;
-
-        categoriaCantidad.delete(data[i].categoria);
-        categoriaCantidad.set(data[i].categoria, cantidad);
+    for (let i = 0; i < this.productos.length; i++) {
+      if(mapa.get(this.productos[i].categoria) !== undefined){
+        let cantidad = mapa.get(this.productos[i].categoria) + 1;
+        mapa.set(this.productos[i].categoria, cantidad);
       }else{
-        categoriaCantidad.set(data[i].categoria, 1);
+        mapa.set(this.productos[i].categoria, 1);
       }
     }
-    return categoriaCantidad;
+    console.log(mapa);
+    let labels = Array.from(mapa.keys())
+    let quantities = Array.from(mapa.values());
+    this.barChartMethod(labels, quantities)
   }
 
-  private setVentasPorDia(data){
-
+  mapEstadoPedido(){
+    let mapa = new Map<string, number>();
+    for (let i = 0; i < this.pedidos.length; i++) {
+      if(mapa.get(this.pedidos[i].estado) !== undefined){
+        let cantidad = mapa.get(this.pedidos[i].estado) + 1;
+        mapa.set(this.pedidos[i].estado, cantidad);
+      }else{
+        mapa.set(this.pedidos[i].estado, 1);
+      }
+    }
+    let labels = Array.from(mapa.keys())
+    let quantities = Array.from(mapa.values());
+    this.doughnutChartMethod(labels, quantities)
   }
 
-  private setVentasPorMes(data){
-
+  async ngAfterViewInit() {
+    await this.getPedidos();
+    await this.getProductos();
+    await this.getFacturas();
   }
 
-  private setTopClientes(data){
-
-  }
-
-  barChartMethod() {
+  barChartMethod(labels, data) {
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: ['BJP', 'INC', 'AAP', 'CPI', 'CPI-M', 'NCP'],
+        labels: labels,
         datasets: [{
-          label: '# of Votes',
-          data: [200, 50, 30, 15, 20, 34],
+          label: '# de Productos',
+          data: data,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -118,14 +157,14 @@ export class DashboardPage implements AfterViewInit{
     });
   }
 
-  doughnutChartMethod() {
+  doughnutChartMethod(label, data) {
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
       type: 'doughnut',
       data: {
-        labels: ['BJP', 'Congress', 'AAP', 'CPM', 'SP'],
+        labels: label,
         datasets: [{
           label: '# of Votes',
-          data: [50, 29, 15, 10, 7],
+          data: data,
           backgroundColor: [
             'rgba(255, 159, 64, 0.2)',
             'rgba(255, 99, 132, 0.2)',
@@ -145,14 +184,14 @@ export class DashboardPage implements AfterViewInit{
     });
   }
 
-  lineChartMethod() {
+  lineChartMethod(label, data) {
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'November', 'December'],
+        labels: label,
         datasets: [
           {
-            label: 'Sell per week',
+            label: 'Ventas por dia',
             fill: false,
             backgroundColor: 'rgba(75,192,192,0.4)',
             borderColor: 'rgba(75,192,192,1)',
@@ -169,28 +208,12 @@ export class DashboardPage implements AfterViewInit{
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40, 10, 5, 50, 10, 15],
+            data: data,
             spanGaps: false,
           }
         ]
       }
     });
-  }
-
-  getProductosPorCategoria(){
-
-  }
-
-  getVentasEstaSemana(){
-
-  }
-
-  getVentasPorMes(){
-
-  }
-
-  getTop5Clientes(){
-
   }
 
 }
