@@ -34,4 +34,7 @@ export class MenuclienteComponent implements OnInit {
   pedidos() {
     this.router.navigate(['pedidos']);
   }
+  mapa(){
+    this.router.navigate(['mapa']).then(e => console.log(e,'<-- Se navego hacia mapa'));
+  }
 }

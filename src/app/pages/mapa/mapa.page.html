@@ -1,10 +1,13 @@
-
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <div class="home">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-button (click)="backHome()">
+        <ion-icon slot="icon-only" color="light" name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>RUTAS</ion-title>
+    </div>
+    <ion-title>Ruta</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +25,7 @@
     <ion-item>
       <ion-icon name="bicycle" slot="start"></ion-icon>
       <ion-card-title style="font-size: 140%;">KEVIN GODOY</ion-card-title>
-      <ion-button fill="outline" slot="end"><ion-icon name="call" (click)="llamarMoto()"></ion-icon></ion-button>
+      <ion-button fill="outline" slot="end" (click)="llamarMoto()"><ion-icon name="call" ></ion-icon></ion-button>
     </ion-item>
 
     <ion-card-content>
@@ -40,7 +43,7 @@
     <ion-item>
       <ion-icon name="home" slot="start"></ion-icon>
       <ion-card-title style="font-size: 140%;">LEONARDO ALVARADO</ion-card-title>
-      <ion-button fill="outline" slot="end"><ion-icon name="call" (click)="llamarEncargado()"></ion-icon></ion-button>
+      <ion-button fill="outline" slot="end" (click)="llamarEncargado()"><ion-icon name="call" ></ion-icon></ion-button>
     </ion-item>
 
     <ion-card-content>

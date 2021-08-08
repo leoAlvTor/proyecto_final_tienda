@@ -49,4 +49,6 @@ export class AppComponent {
   pedido() {
     this.router.navigate(['pedidos-admin']).then(e => console.log(e,'<-- Se navego hacia pedidos-admin'));
   }
+  
+  
 }

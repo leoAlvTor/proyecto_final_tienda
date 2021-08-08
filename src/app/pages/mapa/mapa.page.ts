@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 @Component({
@@ -14,7 +15,7 @@ export class MapaPage implements OnInit {
   
    origin: any;
    destination: any;
-   constructor(private callNumber: CallNumber){
+   constructor(private callNumber: CallNumber,private router:Router){
 
    }
   
@@ -32,7 +33,8 @@ export class MapaPage implements OnInit {
     const coordinates = await Geolocation.getCurrentPosition();
     //console.log('Current position:', coordinates.coords.latitude);
     this.origin = { lat: this.lat, lng: this.lng };
-    this.destination = { lat: coordinates.coords.latitude, lng: coordinates.coords.longitude };
+    this.destination = { lat: coordinates.coords.latitude, lng:coordinates.coords.longitude}
+
   }
   llamarMoto(){
     this.callNumber.callNumber('0984965930', true)
@@ -43,5 +45,10 @@ export class MapaPage implements OnInit {
       this.callNumber.callNumber('0987654321', true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
+      }
+
+
+      backHome(){
+        this.router.navigate(['clientehome'])
       }
 }
