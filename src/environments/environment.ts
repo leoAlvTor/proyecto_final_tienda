@@ -12,7 +12,9 @@ export const environment = {
     messagingSenderId: '855265724547',
     appId: '1:855265724547:web:82424df37c05569d6173b6',
     measurementId: 'G-QQ0BMQZXJL'
-  }
+  },
+
+  WS_PATH: 'http://localhost:8080/tienda/rs/'
 };
 
 /*

@@ -5,7 +5,10 @@ import {Router} from '@angular/router';
 import {pedido} from '../../modelo/pedido';
 import {Persona} from '../../modelo/persona';
 import {FirebaseService} from '../../services/firebase.service';
-import {CarritoService} from "../../services/carrito.service";
+import {CarritoService} from '../../services/carrito.service';
+import {RestService} from '../../services/rest.service';
+import {Factura_Cabecera} from '../../modelo/factura_cabecera';
+import {Factura_Detalle} from "../../modelo/factura_detalle";
 
 
 @Component({
@@ -23,18 +26,21 @@ export class CarritoPage implements OnInit {
   public index;
 
   public total2: any=[];
-  public totalF: number=0;
-  public totalIva :number=0;
-  public subtotal: number=0;
+  public totalF=0;
+  public totalIva=0;
+  public subtotal=0;
 
   private cantidades: string;
   private precio: string;
 
-  private total: number=0.0;
-  private id_pedido: number=0;
+  private total=0.0;
+  private id_pedido=0;
+  public totoalFC: any;
+  factura_cabecera: Factura_Cabecera = new Factura_Cabecera();
+  factura_detalle: Factura_Detalle = new Factura_Detalle();
 
   constructor(private toastCtr: ToastController,private menuController: MenuController,private router: Router,
-              private fire: FirebaseService, private carritoService: CarritoService) { }
+              private fire: FirebaseService, private carritoService: CarritoService, private rest: RestService) { }
 
   ngOnInit() {
     this.cliente = JSON.parse(localStorage.getItem('cliente'));
@@ -90,7 +96,7 @@ export class CarritoPage implements OnInit {
     toast.present();
   }
 
-  eliminarProducto(producto : carrito){
+  eliminarProducto(producto: carrito){
     let data;
     for (let index = 0; index < this.productos.length; index++) {
       console.log(this.productos[index].nombre);
@@ -99,7 +105,7 @@ export class CarritoPage implements OnInit {
       }
     }
     console.log('Este es el indice',this.index);
-    var indice=this.productos.indexOf(0);
+    const indice=this.productos.indexOf(0);
     console.log(indice);
     this.productos.splice(data,1);
     console.log('Areglo eliminao un producto',this.productos);
@@ -121,9 +127,9 @@ export class CarritoPage implements OnInit {
   calcular(){
     console.log('recupero y calculo',this.productos);
     //Creacion de foreach
-    for(let pro of this.productos){
-      this.cantidades=(pro['cantidad']);
-      this.precio=(pro['precio']);
+    for(const pro of this.productos){
+      this.cantidades=(pro.cantidad);
+      this.precio=(pro.precio);
       console.log(this.cantidades);
       console.log(this.precio);
 
@@ -132,7 +138,7 @@ export class CarritoPage implements OnInit {
       this.total2.push(this.total);
     }
     console.log('total2------------->',this.total2);
-    for(let totales of this.total2){
+    for(const totales of this.total2){
       console.log(totales);
       this.subtotal=this.subtotal+totales;
       this.totalIva=(this.subtotal*12/100);
@@ -147,24 +153,48 @@ export class CarritoPage implements OnInit {
 
   async realizarPedido(){
     console.log(this.productos);
+    this.fire.firebase.collection('Factura Cabecera').get().toPromise().then(snap=>{
+      this.factura_cabecera.id=snap.size+1;
+      this.factura_cabecera.total=this.totalF;
+      console.log(this.factura_cabecera);
+      this.fire.addDocument('Factura Cabecera',JSON.parse(JSON.stringify(this.factura_cabecera)));
+    });
+
+
     this.fire.firebase.collection('pedidos').get().toPromise().then(snap=>{
       this.id_pedido=snap.size+1;
       console.log('nuevo id',this.id_pedido);
+      console.log('total final de la factura',this.totalF);
+      console.log('Factura Cabecera',this.factura_cabecera);
+
       for (let index = 0; index < this.productos.length; index++) {
+        console.log('Id de la factura Cabecera para los productos',this.factura_cabecera.id);
         console.log('Este es el nuevo id',this.id_pedido);
         console.log(this.productos[index].nombre);
         this.pedido.numero_pedido=this.id_pedido.toString();
+        this.pedido.codigo_producto=this.productos[index].id;
         this.pedido.estado='solicitado';
         this.pedido.nombre_producto=this.productos[index].nombre;
         this.pedido.id_cliente=this.cliente.Codigo;
         this.pedido.cantidad=this.productos[index].cantidad;
         this.pedido.total=this.totalF;
+        //Se procede a realizar la factura
 
-        console.log('Este es el pedido',this.pedido);
-        console.log('Nombre',this.pedido.nombre_producto,'cantidad',this.pedido.cantidad);
+        this.factura_detalle.cantidad=parseInt(this.pedido.cantidad,10);
+        this.factura_detalle.id_factura_cabecera=(this.factura_cabecera.id).toString();
+        this.factura_detalle.id_producto=this.pedido.codigo_producto;
+        this.factura_detalle.representacion='unidad';
+        this.factura_detalle.total=this.pedido.total;
+        //console.log('Nombre',this.pedido.nombre_producto,'cantidad',this.pedido.cantidad);
         //this.fire.addPedido(this.pedido);
+        //Segenera el pedido
         this.fire.addDocuments('pedidos',JSON.parse(JSON.stringify(this.pedido)));
+        this.rest.savePedido(this.pedido).subscribe();
+        //Se realiza el dettale facturas
+        this.fire.addDocuments('Factura Detalle',JSON.parse(JSON.stringify(this.factura_detalle)));
+
       }
+
       this.limpiarPedidos();
       console.log('lista limpia de productos',this.productos);
     });

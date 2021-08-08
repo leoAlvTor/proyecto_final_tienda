@@ -5,6 +5,7 @@ import {ProductoService} from "../../services/producto.service";
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import {AngularFireStorage, AngularFireUploadTask} from "@angular/fire/storage";
+import {RestService} from "../../services/rest.service";
 export interface FILE{
   name: string;
   filepath: string;
@@ -28,7 +29,7 @@ export class AgregarProductoPage implements OnInit {
   //@ts-ignore
   producto: Producto = new Producto();
   constructor(private servicio: ProductoService, private angularFirestore: AngularFirestore,
-              private angularFireStorage: AngularFireStorage) {
+              private angularFireStorage: AngularFireStorage, private rest: RestService) {
     //@ts-ignore
     this.producto = new Producto();
     this.isImgUploading = false;
@@ -71,9 +72,11 @@ export class AgregarProductoPage implements OnInit {
   add(){
     console.log(this.producto);
     this.servicio.save(this.producto);
+    this.rest.saveProducto(this.producto).subscribe();
     setTimeout(() => {
       window.location.reload();
      }, 1500);
+
   }
 
 }
