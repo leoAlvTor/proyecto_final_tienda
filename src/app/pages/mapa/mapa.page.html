@@ -1,13 +1,55 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>mapa</ion-title>
+    <div class="home">
+    <ion-buttons slot="start">
+      <ion-button (click)="backHome()">
+        <ion-icon slot="icon-only" color="light" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </div>
+    <ion-title>Ruta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  <agm-map [latitude]="lat" [longitude]="lng" ><agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="icons.moto"></agm-marker>
+    <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
   </agm-map>
+  <br>
+  <ion-item-divider>Contactanos:</ion-item-divider>
+  <br>
+  <ion-card style="padding:5%;margin-top: 0px;">
+    <ion-avatar style="margin-left: 42%;">
+      <img src="https://media-exp3.licdn.com/dms/image/C4E03AQFkN0T42MmN9A/profile-displayphoto-shrink_200_200/0/1610312860649?e=1628726400&v=beta&t=UXtSKE2wFZgBGwrp3Y05_AP8bQB_-0qYWe6dj7qDgEo">
+    </ion-avatar>
+    <ion-item>
+      <ion-icon name="bicycle" slot="start"></ion-icon>
+      <ion-card-title style="font-size: 140%;">KEVIN GODOY</ion-card-title>
+      <ion-button fill="outline" slot="end" (click)="llamarMoto()"><ion-icon name="call" ></ion-icon></ion-button>
+    </ion-item>
 
+    <ion-card-content>
+      <ion-label>PLACA: SFA-123</ion-label><br>
+      <ion-label>UNIDAD: 18</ion-label><br>
+      <ion-label>SECTOR: La Prensa</ion-label><br>
+      <ion-label>MOTORIZADO #: 23</ion-label><br>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card style="padding:5%;">
+    <ion-avatar style="margin-left: 42%;">
+      <img src="https://avatars.githubusercontent.com/u/45834184?v=4">
+    </ion-avatar>
+    <ion-item>
+      <ion-icon name="home" slot="start"></ion-icon>
+      <ion-card-title style="font-size: 140%;">LEONARDO ALVARADO</ion-card-title>
+      <ion-button fill="outline" slot="end" (click)="llamarEncargado()"><ion-icon name="call" ></ion-icon></ion-button>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-label style="font-size: 15px;">OCUPACION: Encargado de Tu Tienda</ion-label><br>
+      <ion-label>CORREO: leoalv@gmail.com</ion-label><br>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>

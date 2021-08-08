@@ -8,6 +8,7 @@ import { MapaPageRoutingModule } from './mapa-routing.module';
 
 import { MapaPage } from './mapa.page';
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,8 +16,9 @@ import { AgmCoreModule } from '@agm/core';
     IonicModule,
     MapaPageRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCT9wzsIIAkW95uHWVvCbBEP-xtjNbJPow'
-    })
+      apiKey: 'AIzaSyCT9wzsIIAkW95uHWVvCbBEP-xtjNbJPow',
+    }),
+    AgmDirectionModule,
   ],
   declarations: [MapaPage]
 })
