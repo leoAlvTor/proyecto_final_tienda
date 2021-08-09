@@ -13,11 +13,11 @@ import { LocationService } from 'src/app/services/location.service';
 export class MapaPage implements OnInit {
 
   zoom = 14;
-  lat=37.427455;
-  lng=-122.1385221;
-  
-   //lat = -2.8972198003892378;
-   //lng = -78.99188644259048;
+  //lat=37.427455;
+  //lng=-122.1385221;
+
+   lat = -2.8972198003892378;
+   lng = -78.99188644259048;
    latitudGoogle: any;
    longitudGoogle: any;
    currentLocation: any;
@@ -26,7 +26,7 @@ export class MapaPage implements OnInit {
    constructor(private callNumber: CallNumber,private router:Router, private locationService: LocationService){
 
    }
-  
+
   async ngOnInit() {
     this.getDirection();
   }
@@ -44,7 +44,7 @@ export class MapaPage implements OnInit {
     //const coordinates = await Geolocation.getCurrentPosition();
     //console.log('Current position:', coordinates.coords.latitude);
     this.origin = { lat: this.lat, lng: this.lng };
-    this.destination = { lat: Number(this.latitudGoogle) , lng: Number(this.longitudGoogle)}
+    this.destination = { lat: Number(this.latitudGoogle) , lng: Number(this.longitudGoogle)};
     //this.destination = { lat:-2.9055482 , lng:-78.9905908};
     alert(this.destination.lat);
     alert(this.destination.lng);

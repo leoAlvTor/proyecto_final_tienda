@@ -57,10 +57,10 @@ export class DetalleproductoPage implements OnInit {
   }
 
   enviar_tweet(){
-    let producto = this.producto as Producto
-    let mensaje = "Acabo de comprar este producto: " + producto.nombre;
+    let producto = this.producto as Producto;
+    let mensaje = 'Acabo de comprar este producto: ' + producto.nombre;
 
-    fetch("http://localhost:8000/send_message/?mensaje="+ mensaje + "&imagen_referencial="+producto.imagen)
+    fetch('http://localhost:8000/send_message/?mensaje='+ mensaje + '&imagen_referencial='+producto.imagen)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));

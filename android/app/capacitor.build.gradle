@@ -14,6 +14,7 @@ dependencies {
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
     implementation "com.android.support:support-v4:27.+"
+    implementation "com.android.support:support-v4:27.+"
 }
 apply from: "../../node_modules/phonegap-plugin-barcodescanner/src/android/barcodescanner.gradle"
 

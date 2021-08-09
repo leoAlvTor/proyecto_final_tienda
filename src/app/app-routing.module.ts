@@ -91,7 +91,11 @@ const routes: Routes = [
   {
     path: 'pedidos-admin',
     loadChildren: () => import('./pages/pedidos-admin/pedidos-admin.module').then( m => m.PedidosAdminPageModule)
+  },  {
+    path: 'terminos',
+    loadChildren: () => import('./pages/terminos/terminos.module').then( m => m.TerminosPageModule)
   }
+
 
 
 

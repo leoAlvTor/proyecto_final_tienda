@@ -36,6 +36,9 @@ export class UpdateClientePage implements OnInit {
   updateContacto() {
     console.log(this.persona);
     this.personaService.addPerson(this.persona);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1580)
     this.router.navigate(['clientes']);
   }
 }

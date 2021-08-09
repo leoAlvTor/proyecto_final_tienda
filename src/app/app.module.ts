@@ -16,6 +16,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AgmDirectionModule } from 'agm-direction';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import {HttpClientModule} from '@angular/common/http';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @NgModule({
   declarations: [AppComponent,FileSizePipe],
@@ -31,7 +32,7 @@ import {HttpClientModule} from '@angular/common/http';
               apiKey: ''}),
               AgmDirectionModule,
             ],
-  providers: [BarcodeScanner,CallNumber,  { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [BarcodeScanner,CallNumber,EmailComposer,  { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

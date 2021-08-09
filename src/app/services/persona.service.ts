@@ -24,4 +24,9 @@ export class PersonaService {
         persona.Activo = false;
     refProducto.doc(persona.Codigo).set(Object.assign({}, persona));
   }
+  buscarPersona(cedula: string): Observable<any>{
+    console.log('this is mail of client '+cedula);
+    return this.afs.collection('Persona',
+      ref => ref.where('Codigo', '==', cedula)).valueChanges();
+  }
 }
