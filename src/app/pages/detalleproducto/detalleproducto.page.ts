@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {carrito} from '../../modelo/carrito';
 import {ToastController} from '@ionic/angular';
 import {CarritoService} from '../../services/carrito.service';
+import {Producto} from "../../modelo/producto";
 
 @Component({
   selector: 'app-detalleproducto',
@@ -53,5 +54,15 @@ export class DetalleproductoPage implements OnInit {
       position:'top'
     });
     toast.present();
+  }
+
+  enviar_tweet(){
+    let producto = this.producto as Producto
+    let mensaje = "Acabo de comprar este producto: " + producto.nombre;
+
+    fetch("http://localhost:8000/send_message/?mensaje="+ mensaje + "&imagen_referencial="+producto.imagen)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   }
 }
