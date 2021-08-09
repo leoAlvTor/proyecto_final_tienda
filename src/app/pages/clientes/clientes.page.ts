@@ -18,19 +18,29 @@ export class ClientesPage implements OnInit {
 
   //constructor(private router: Router, private personaService: PersonaService) {
   //}
-  constructor(private router:Router,private personaService: PersonaService,private firestore: AngularFirestore) {}
+  constructor(private router:Router,private personaService: PersonaService,private firestore: AngularFirestore) {
+    this.Personas = Array<Persona>();
+  }
   Personas:any;
   PersonasBackup:any;
-
+ 
   async ngOnInit() {
     //this.Personas = this.personaService.getPersons();
-    //console.log(this.Personas);
-    this.Personas = await this.initializeItems();
+    //console.log(this.Personas)
+    
+    //this.Personas = await this.initializeItems();
+    this.firestore.collection('Persona').snapshotChanges().subscribe((data)=>{
+      data.forEach(element => {
+        console.log(element.payload.doc.data())
+        if((element.payload.doc.data() as Persona).Activo === true)
+          this.Personas.push(element.payload.doc.data())
+      });
+    })
       console.log(this.Personas);
   }
   async initializeItems(): Promise<any>  {
-    const locales =  await this.firestore.collection('Persona', ref => ref.where("Activo", "==", true))
-      .valueChanges().pipe(first()).toPromise();
+    const locales =  await this.firestore.collection('Persona',
+    ref => ref.where('Activo','==',true)).valueChanges().pipe(first()).toPromise();
     this.PersonasBackup = locales;
     return locales;
   }

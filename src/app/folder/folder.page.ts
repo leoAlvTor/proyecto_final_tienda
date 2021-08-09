@@ -18,8 +18,10 @@ export class FolderPage implements OnInit {
   async logOut(){
     try {
       this.afsAuth.signOut();
+      
     }catch (error){
       console.log('Error : -> ', error);
     }
+  }  
   }
-}
+
