@@ -18,4 +18,10 @@ export class PersonaService {
     return this.afs.collection('Persona',
       ref => ref.where('Activo','==',true)).valueChanges();
   }
+  borrar(persona: Persona){
+    const refProducto = this.afs.collection("Persona");
+        let productoJSON = JSON.stringify(persona);
+        persona.Activo = false;
+    refProducto.doc(persona.Codigo).set(Object.assign({}, persona));
+  }
 }

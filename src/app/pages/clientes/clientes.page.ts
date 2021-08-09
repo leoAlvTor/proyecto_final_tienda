@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {PersonaService} from '../../services/persona.service';
 import {NavigationExtras, Router} from '@angular/router';
 import {Persona} from '../../modelo/persona';
-
+import { AngularFirestore } from '@angular/fire/firestore';
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.page.html',
@@ -10,19 +11,44 @@ import {Persona} from '../../modelo/persona';
 })
 export class ClientesPage implements OnInit {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  Personas: any;
 
-  persona: Persona = new Persona();
+  //Personas: any;
 
-  constructor(private router: Router, private personaService: PersonaService) {
+  //persona: Persona = new Persona();
+
+  //constructor(private router: Router, private personaService: PersonaService) {
+  //}
+  constructor(private router:Router,private personaService: PersonaService,private firestore: AngularFirestore) {}
+  Personas:any;
+  PersonasBackup:any;
+
+  async ngOnInit() {
+    //this.Personas = this.personaService.getPersons();
+    //console.log(this.Personas);
+    this.Personas = await this.initializeItems();
+      console.log(this.Personas);
   }
-
-  ngOnInit() {
-    this.Personas = this.personaService.getPersons();
-    console.log(this.Personas);
+  async initializeItems(): Promise<any>  {
+    const locales =  await this.firestore.collection('Persona', ref => ref.where("Activo", "==", true))
+      .valueChanges().pipe(first()).toPromise();
+    this.PersonasBackup = locales;
+    return locales;
   }
-
-  editarContacto(persona: any) {
+  async filterList(evt) {
+    this.Personas = await this.initializeItems();
+ 
+     const searchTerm = evt.srcElement.value;
+ 
+     if (!searchTerm) {
+       return;
+     }
+     this.Personas =  this.Personas.filter(persona => {
+       if (persona.Nombres && searchTerm) {
+         return (persona.Nombres.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 || persona.Codigo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ) ;
+       }
+     });
+   }
+   async editarContacto(persona: any) {
     console.log('Se procede a editar el contacto');
     console.log(persona);
 
@@ -34,11 +60,12 @@ export class ClientesPage implements OnInit {
     this.router.navigate(['update-cliente'],params);
   }
 
-  borrarContacto(persona: any) {
-    console.log('Cliente a Eliminar :', persona);
-    this.persona=persona;
-    this.persona.Activo=false;
-    this.personaService.addPerson(this.persona);
+  async borrarContacto(persona: any) {
+    console.log('Producto a Eliminar :', persona);
+    this.Personas=persona;
+    this.personaService.borrar(this.Personas);
+    //this.productos =  this.productosService.getProductos();
+    this.Personas = await this.initializeItems();
     this.router.navigate(['clientes']);
   }
 }

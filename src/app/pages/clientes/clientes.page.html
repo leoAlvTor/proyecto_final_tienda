@@ -7,10 +7,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <ion-searchbar placeholder="Buscar Cliente por nombre o codigo" showcancelbutton=""(ionInput)="filterList($event)"></ion-searchbar>
+  <ion-item-divider>Mis Clientes:</ion-item-divider>
+  <ion-list lines="none">
+    <ion-item *ngFor="let cliente of Personas">
+      <ion-label class="ion-text-wrap">
+        <img src="assets/avatar.png" style="height: 20%; width: 20%;margin-left: 40%;">
+        <ion-text color="primary">
+          <h3>{{ cliente.Nombres }}</h3>
+        </ion-text>
+        <p><strong>Codigo :</strong>{{ cliente.Codigo }}</p> 
+        <p><strong>Stock : </strong>{{cliente.Correo}}</p>
+        <ion-button (click)="editarContacto(cliente)"color="primary" expand="block" >Edit Product</ion-button>
+        <ion-button  (click)="borrarContacto(cliente)"  color="warning" expand="block" >Delete</ion-button>
+        <ion-item-divider></ion-item-divider>
+      </ion-label>
+      
+    </ion-item>
+  </ion-list>
 
+</ion-content>
+  <!--<ion-searchbar placeholder="Buscar cliente por nombre o codigo" showcancelbutton=""(ionInput)="filterList($event)"></ion-searchbar>
   <ion-list >
-    <ion-item  *ngFor="let p of Personas | async">
+    <ion-item  *ngFor="let p of Personas ">
       <ion-card color="light">
           <img src="assets/avatar.png" style="height: 20%; width: 20%">
         <ion-card-header>
@@ -25,5 +45,5 @@
       </ion-card>
     </ion-item>
 
-  </ion-list>
-</ion-content>
+  </ion-list>-->
+
